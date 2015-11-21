@@ -11,6 +11,10 @@ class character_base {
   float health;
   float jump_height;
   String name;
+    character_base(int conlives, float conjump_height, boolean concan_jump){
+    conlives=lives;
+    conjump_height=jump_height;
+  }
   void spawn() {
   }
   void death() {
