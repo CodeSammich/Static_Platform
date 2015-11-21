@@ -4,13 +4,10 @@ class character_base {
   boolean is_enemy;
   boolean can_jump;
   boolean can_move;
-  boolean can_attack;
-  int health;
   float armor;
   float resistance;
   float health;
   float jump_height;
-  String name;
   void spawn() {
   }
   void death() {
