@@ -5,7 +5,7 @@ class character_base {
   boolean can_jump;
   boolean can_move;
   boolean can_attack;
-  int health;
+  int lives;
   float armor;
   float resistance;
   float health;
