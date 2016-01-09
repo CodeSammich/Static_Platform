@@ -47,7 +47,7 @@ class main_character extends character_base {
            delay(1);//add a supersmall delay to prevent overloading of code
            xcore=newxcore;*/          // current coordinate is set to the future one
         }
-        if (oppositekeypressed) { // read above comments and basically the same thing but
+       if (oppositekeypressed) { // read above comments and basically the same thing but
           walking_state=1;
           standing_state=0;
           /*prevxcore=xcore;
@@ -79,5 +79,4 @@ class main_character extends character_base {
       }
     }
   }
-}
-
+  }
