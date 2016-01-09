@@ -4,6 +4,7 @@ class character_base {
   boolean is_enemy;
   boolean can_jump;
   boolean can_move;
+  boolean can_spawn;
   boolean can_attack;
   float damagedeal;
   int lives;
@@ -12,7 +13,7 @@ class character_base {
   float health;
   float jump_height;
   String name;
-  character_base(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
+  character_base(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_attack,boolean concan_spawn, boolean concan_move, float conarmor, float conresistance) {
     lives=conlives;
     health=conhealth;
     jump_height=conjump_height;
