@@ -30,35 +30,54 @@ class main_character extends character_base {
     marioList.add(mario);
     marioList.add(mario1);
     marioList.add(mario2);
-    xcore = 50;
-    ycore = 50;
+    xcore = 175;
+    ycore = 175;
   }
 
   void display() {
-    walking_state=1;   // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
-    if (keyPressed) { // IF RIGHT ARROW KEY PRESSED
-      walking_state=1; // SET THE WALKING STATE TO POSITIVE
-      standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
-      /*prevxcore=xcore; //The previous coordinate is set to the coordinate we are in now
-       newxcore=xcore+10;//THe future coordinate is set to the coordinate we are in now plus 10 more since we are going right
-       delay(1);//add a supersmall delay to prevent overloading of code
-       xcore=newxcore;*/      // current coordinate is set to the future one
+    // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE
+    // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
+    if (keyPressed) {
+      if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
+        walking_state=1; // SET THE WALKING STATE TO POSITIVE
+        standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
+        /*prevxcore=xcore; //The previous coordinate is set to the coordinate we are in now
+         newxcore=xcore+10;//THe future coordinate is set to the coordinate we are in now plus 10 more since we are going right
+         delay(1);//add a supersmall delay to prevent overloading of code
+         xcore=newxcore;*/        // current coordinate is set to the future one
+      } else if (walking_state==2) {
+        //walking_state=1;
+        //tanding_state=0;
+      }
     }
-    if (keyPressed) { // read above comments and basically the same thing but
-      walking_state=1;
-      standing_state=0;
-      /*prevxcore=xcore;
-       newxscore=xcore-10; // however it is -10 here so we move backwards
-       delay(1);
-       xcore=newxcore;*/
+    if (!keyPressed) {
+      standing_state=1;
+      walking_state=0;
     }
+    /*if (keyPressed) { // read above comments and basically the same thing but
+     walking_state=1;//set walking state positive
+     standing_state=0;//make sure game recognises that we are moving
+                                              /*prevxcore=xcore;
+     newxscore=xcore-10; // however it is -10 here so we move backwards
+     delay(1);
+     xcore=newxcore;
+     }*/
     if (standing_state==1) {
       image(marioList.get(0), xcore, ycore);
     }
     if (walking_state==1) {
-      image(marioList.get(1), xcore-10, ycore);
-      delay(10);
-      image(marioList.get(1), xcore+10, ycore);
+      xcore=xcore+8;
+      walking_state=2;
+      //      image(marioList.get(0), xcore, ycore);
+      //      delay(10);
+      delay(50);
+      image(marioList.get(1), xcore, ycore);
+    } else if (walking_state==2) {
+      xcore=xcore+8;
+      walking_state=0;
+      standing_state=1;
+      delay(50);
+      image(marioList.get(0), xcore, ycore);
     }
     /*if(leftkeyheld) {
      Walking_state=1;

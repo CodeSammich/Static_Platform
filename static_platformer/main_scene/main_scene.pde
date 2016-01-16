@@ -13,6 +13,20 @@ void setup() {
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
 }
 void draw() {
+  drawBackground();
+  mario.display();
+}
+void keyPressed() {
+  if (keyCode==UP&&Lives<3&&Wait<1) {
+    Lives=Lives+1;
+    Wait=10;
+  }
+  if (keyCode==DOWN&&Lives>0&&Wait<1) {
+    Lives=Lives-1; 
+    Wait=10;
+  }
+}
+void drawBackground() { 
   image(Wall, 0, 0, 800, 600);
   //Lives
   stroke(139, 69, 19);
@@ -67,27 +81,16 @@ stroke(139,69,19);
    ellipse(370,515,30,30);
    ellipse(430,515,30,30);
    */
-  mario.display();
   if (Wait>0) {
     Wait=Wait-1;
   }
   println(Wait);
 }
-void keyPressed() {
-  if (keyCode==UP&&Lives<3&&Wait<1) {
-    Lives=Lives+1;
-    Wait=10;
-  }
-  if (keyCode==DOWN&&Lives>0&&Wait<1) {
-    Lives=Lives-1; 
-    Wait=10;
-  }
-}
-
 // Add background to display on this file here
 //merge background files into the main scene folder
 //try to set a standard screensize
 //change anything you want above
 
 //Updated with background
+//Added Mario Basic Display Only
 
