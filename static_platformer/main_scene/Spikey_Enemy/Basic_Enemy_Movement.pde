@@ -8,6 +8,8 @@ int x;
 int y;
 int lr;
 int fall;
+float VY = 2;
+float G = .1;
 
 spikey_enemy temp;
 
@@ -35,7 +37,10 @@ void draw(){
     color c = get(x,y+50);
     if(isOnBlue(c)) fall = 0;
     else fall = 1;
-    y += 1 * fall;
+    if(fall == 1){
+      VY=VY-G;
+      y=(int)(y-VY);
+    }
     x += temp.getSpeed() /* scale to width/difficulty/framerate */ * lr;
     if((x <= 0)||(x >= width-50 /* scale to width */)) lr *= -1;
     if(mousePressed) temp.takeHit();
