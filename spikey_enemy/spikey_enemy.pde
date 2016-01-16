@@ -1,16 +1,51 @@
 class spikey_enemy extends character_base{
-  String frameleft = "spikey.png";
-  String frameright = "spikey2.png";
+  String frame1;
+  String frame2;
+  int isFalling;
+  int x; // location we need to find how to change
+  int y; // location we need to find how to change
+  int speed; // speed
+  int direction; // direction
   boolean is_enemy;
   spikey_enemy(int conlives, float conjump_height, boolean concan_jump, boolean concan_attack, boolean concan_move, float conarmor, float conresistance){
   super(conlives,conjump_height,concan_jump,concan_attack,concan_move,conarmor,conresistance);
   is_enemy=true;
-  conlives=1;
-  conjump_height=1;
-  concan_move=true;
-  concan_jump=false;
-  concan_attack=true;
-  conarmor=0;
-  conresistance=0;
+  x = width/2-50;
+  y = height-200;
+  speed = 2;
+  direction = -1;
+  frame1 = "spikey.png";
+  frame2 = "spikey2.png";
+  isFalling = 0;
   }
+  
+  String getFrame1(){
+    return frame1; 
+  }
+  String getFrame2(){
+    return frame2; 
+  }
+  int getX(){
+    return x;
+  }
+  int getY(){
+    return y;
+  }
+  int getSpeed(){
+    return speed;
+  }
+  int getDirection(){
+    return direction;
+  }
+  int getLives(){
+    return lives;
+  }
+  int getFalling(){
+    return isFalling;
+  }
+  void takeHit(){
+    lives += -1; 
+  }
+  
+  
 }
