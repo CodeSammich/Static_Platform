@@ -3,14 +3,25 @@ class main_character extends character_base {
   int standing_state;
   int jumping_state;
   int walking_state;
-  int xcore;
-  int ycore;
+  float xcore;
+  float ycore;
   boolean left;
   boolean right;
   boolean jump;
   boolean crouch;
   boolean lrLock;
   float charSpeed;
+  int L=0;
+  int R=0;
+  float ypos=100;
+  float yacc=0.15;
+  float yvel=1;
+  float xpos=100;
+  float xvel=0;
+  float xacc=0.05;
+  float jumptime=2;
+  float wait=5;
+  float back=1;
   //float X;
   //float Y;
   float VX;
@@ -46,6 +57,11 @@ class main_character extends character_base {
   }
 
   void display() {
+    //GLOBAL ALGORITHMIC CONSTANTS
+    xcore=xcore+xvel; // this is from aidans code, sets the xpos with accurate accel and velocity factors
+    ycore=ycore+yvel; // this is from aidans code, sets the ypos with accurate accel and velocity factors
+    yvel=yvel+yacc; //other equation for vertical jumping NOTE: THERE ISNT A SECOND COPY WITH -yacc BECAUSE WE DONT NEED TO JUMP DOWNWARDS OFF THE MAP
+    //END OF GLOBAL ALGORITHMIC CONSTANTS
     // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
     if (keyPressed) {
@@ -73,6 +89,15 @@ class main_character extends character_base {
             left = false;
           }//closes not left
         }//closes right or left
+        if ((keyCode == UP)&&(jumptime<=1)) {
+          if (!jump) {
+            jump=true;
+            jumptime=jumptime+1;
+          } else if ((keyCode == UP)&&(jumptime<=2)) {
+            jumptime=jumptime+1;
+            jump=true;
+          }
+        }//closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
       }//closes key coded
     }//closes key pressed
     if (!keyPressed) {
@@ -82,7 +107,7 @@ class main_character extends character_base {
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                        /*prevxcore=xcore;
+                                                                                                                                                                                                                  /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
@@ -100,6 +125,7 @@ class main_character extends character_base {
     }
     if (walking_state==1) {
       if (right) {
+        xvel=4; //adian's code stuff
         xcore=xcore+8;
         walking_state=2;
         //      image(marioList.get(0), xcore, ycore);
@@ -108,6 +134,7 @@ class main_character extends character_base {
         image(marioList.get(1), xcore, ycore);
       }
       if (left) {
+        xvel=-4;  //adian's code stuff
         xcore=xcore-8;
         walking_state=2;
         delay(40);
@@ -116,8 +143,22 @@ class main_character extends character_base {
         image(marioList.get(1), xcore, ycore);
         //popMatrix();
       }
+      //==================================================================
+      //Adian's velocity code chunk
+      if (xvel<0) {
+        xvel=xvel+xacc;
+      }
+      if (xvel>0) {
+        xvel=xvel-xacc;
+      }
+      if (ycore>=ycore+75) {
+        yvel=-7;
+        jumptime=2;
+      }
+      //=================================================================
     } else if (walking_state==2) {
       if (right) {
+        xvel=4; //adian's code stuff
         xcore=xcore+8;
         walking_state=0;
         standing_state=1;
@@ -125,6 +166,7 @@ class main_character extends character_base {
         image(marioList.get(0), xcore, ycore);
       }
       if (left) {
+        xvel=-4; //aidan's code stuff
         xcore=xcore-8;
         walking_state=0;
         standing_state=1;
@@ -134,6 +176,19 @@ class main_character extends character_base {
         image(marioList.get(0), xcore, ycore);
         //popMatrix();
       }
+      //==================================================================
+      //Adian's velocity code chunk
+      if (xvel<0) {
+        xvel=xvel+xacc;
+      }
+      if (xvel>0) {
+        xvel=xvel-xacc;
+      }
+      if (ycore>=ycore+75) {
+        yvel=-7;
+        jumptime=2;
+      }
+      //=================================================================
       /*if(leftkeyheld) {
        Walking_state=1;
        Standing_state=0;
