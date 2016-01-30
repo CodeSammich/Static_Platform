@@ -1,6 +1,6 @@
 class character_base {
   boolean is_godmode;
-  boolean is_boss;
+  boolean is_boss; 
   boolean is_enemy;
   boolean can_jump;
   boolean can_move;
@@ -32,6 +32,9 @@ class character_base {
   void update() {
   }
   void display() {
+  }
+  void kill(Object x){
+    x = null;
   }
 }
 

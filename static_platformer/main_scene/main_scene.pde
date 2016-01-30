@@ -4,6 +4,7 @@ PImage Wall;
 int Lives=3;
 float Wait=10;
 main_character mario;
+spikey_enemy spikey;
 
 void setup() {
   size(800, 600);
@@ -15,6 +16,7 @@ void setup() {
 void draw() {
   drawBackground();
   mario.display();
+  spikey.display();
 }
 void keyPressed() {
   if (keyCode==UP&&Lives<3&&Wait<1) {
