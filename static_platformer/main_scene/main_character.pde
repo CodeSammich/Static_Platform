@@ -3,6 +3,7 @@ class main_character extends character_base {
   int standing_state;
   int jumping_state;
   int walking_state;
+  boolean exceedrange;
   float xcore;
   float ycore;
   boolean left;
@@ -10,16 +11,17 @@ class main_character extends character_base {
   boolean jump;
   boolean crouch;
   boolean lrLock;
+  boolean letgoUP;
   float charSpeed;
   int L=0;
   int R=0;
   float ypos=100;
   float yacc=0.15;
-  float yvel=1;
+  float yvel=0;
   float xpos=100;
   float xvel=0;
   float xacc=0.05;
-  float jumptime=2;
+  float jumptime;
   float wait=5;
   float back=1;
   //float X;
@@ -57,12 +59,14 @@ class main_character extends character_base {
   }
 
   void display() {
+    println("You have jumped "+ jumptime+ " times");
+    //println("You have a y velocity of "+ yvel);
     //GLOBAL ALGORITHMIC CONSTANTS
     xcore=xcore+xvel; // this is from aidans code, sets the xpos with accurate accel and velocity factors
     ycore=ycore+yvel; // this is from aidans code, sets the ypos with accurate accel and velocity factors
     yvel=yvel+yacc; //other equation for vertical jumping NOTE: THERE ISNT A SECOND COPY WITH -yacc BECAUSE WE DONT NEED TO JUMP DOWNWARDS OFF THE MAP
     //END OF GLOBAL ALGORITHMIC CONSTANTS
-    // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE
+    // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE *fixed*
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
     if (keyPressed) {
       if (key == CODED) {
@@ -90,12 +94,23 @@ class main_character extends character_base {
           }//closes not left
         }//closes right or left
         if ((keyCode == UP)&&(jumptime<=1)) {
+          println("DID YOU JUMP?"+ jump);
           if (!jump) {
             jump=true;
             jumptime=jumptime+1;
-          } else if ((keyCode == UP)&&(jumptime<=2)) {
-            jumptime=jumptime+1;
+            yvel=-9;
+          } else if ((keyCode != UP) && (jump) && (jumptime<=1)) {
+            letgoUP=true;
+            println("DID YOU LET GO OF UP?"+ letgoUP);
+          } else if ((keyCode == UP)&&(letgoUP==true)&&(jumptime==1)) {
             jump=true;
+            jumptime=jumptime+1;
+            yvel=-5;
+          } else if ((keyCode == UP)&&(jumptime==2)) {
+            yvel=yvel-(yvel*.75);
+            if (yvel*.75<=3) {
+              yvel=yvel*3.45;
+            }
           }
         }//closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
       }//closes key coded
@@ -107,12 +122,13 @@ class main_character extends character_base {
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                                                                  /*prevxcore=xcore;
+                                                                                                                                                                                                                                                                                            /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
      }*/
     if (standing_state==1) {
+      image(marioList.get(0), xcore, ycore);
       if (right) {
         image(marioList.get(0), xcore, ycore);
       }
@@ -151,8 +167,11 @@ class main_character extends character_base {
       if (xvel>0) {
         xvel=xvel-xacc;
       }
-      if (ycore>=ycore+75) {
-        yvel=-7;
+      if ((ycore>=ycore+75) || (ycore<=ycore-75)) {
+        exceedrange=true;
+      }
+      if (((ycore>=ycore+75) || (ycore<=ycore-75)) && (exceedrange==true) && ((jumptime==1) || (jumptime==2))) {
+        yvel=yvel*.75;
         jumptime=2;
       }
       //=================================================================
@@ -184,8 +203,11 @@ class main_character extends character_base {
       if (xvel>0) {
         xvel=xvel-xacc;
       }
-      if (ycore>=ycore+75) {
-        yvel=-7;
+      if ((ycore>=ycore+75) || (ycore<=ycore-75)) {
+        exceedrange=true;
+      }
+      if (((ycore>=ycore+75) || (ycore<=ycore-75)) && (exceedrange==true) && ((jumptime==1) || (jumptime==2))) {
+        yvel=yvel*.75;
         jumptime=2;
       }
       //=================================================================
@@ -204,4 +226,3 @@ class main_character extends character_base {
     }
   }
 }
-

@@ -33,8 +33,7 @@ class character_base {
   }
   void display() {
   }
-  void kill(Object x){
+  void kill(Object x) {
     x = null;
   }
 }
-

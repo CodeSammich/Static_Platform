@@ -7,27 +7,31 @@ main_character mario;
 spikey_enemy spikey;
 
 void setup() {
+  frameRate(60);
   size(800, 600);
   Heart = loadImage("http://lenkom.org/p/2015/12/cartoon-heart-1mzntaqe.png");
   Wall = loadImage("https://c1.staticflickr.com/3/2788/4507998578_37a8608634.jpg");
   Door = loadImage("http://www.lotharslair.com/gothic_door_skulls.gif");
+  //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
+  spikey= new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0);
 }
 void draw() {
-  drawBackground();
+  background(255);
+  //drawBackground();
   mario.display();
-  //spikey.display();
+  spikey.display();
 }
 /*void keyPressed() {
-  if (keyCode==UP&&Lives<3&&Wait<1) {
-    Lives=Lives+1;
-    Wait=10;
-  }
-  if (keyCode==DOWN&&Lives>0&&Wait<1) {
-    Lives=Lives-1; 
-    Wait=10;
-  }
-}*/
+ if (keyCode==UP&&Lives<3&&Wait<1) {
+ Lives=Lives+1;
+ Wait=10;
+ }
+ if (keyCode==DOWN&&Lives>0&&Wait<1) {
+ Lives=Lives-1; 
+ Wait=10;
+ }
+ }*/
 void drawBackground() { 
   image(Wall, 0, 0, 800, 600);
   //Lives
@@ -86,7 +90,7 @@ stroke(139,69,19);
   if (Wait>0) {
     Wait=Wait-1;
   }
-  println(Wait);
+  //println(Wait);
 }
 // Add background to display on this file here
 //merge background files into the main scene folder
@@ -95,4 +99,3 @@ stroke(139,69,19);
 
 //Updated with background
 //Added Mario Basic Display Only
-
