@@ -61,7 +61,7 @@ void draw() {
     fill(0, 255, 0);
   }
   if (jump==1) {
-    fill(204, 204, 0);
+    fill(255, 255, 0);
   }
   if (jump<1) {
     fill(255, 0, 0);
