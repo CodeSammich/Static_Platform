@@ -31,6 +31,7 @@ class main_character extends character_base {
   float VY;
   float G;
   int sizeY;
+  int sizeX;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
   main_character(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
@@ -78,7 +79,7 @@ class main_character extends character_base {
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
     
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
-    if (isOnBlue(c)){
+    if (isOnBlue(c) && yvel > 0){
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
     }
@@ -92,6 +93,10 @@ class main_character extends character_base {
     }
     if (xvel>0) {
       xvel=xvel-xacc;
+    }
+    
+    if (xcore+sizeX >= 800 || xcore <= 0){
+      xvel = 0;
     }
     
     //if (abs(xvel) < 0.1){ // stops mario from creeping to the left after he goes right
@@ -168,6 +173,7 @@ class main_character extends character_base {
      }*/
     if (standing_state==1) {
       image(marioList.get(0), xcore, ycore);
+      sizeX = 14;
       sizeY = 20;
       if (right) {
         image(marioList.get(0), xcore, ycore);
@@ -180,6 +186,7 @@ class main_character extends character_base {
       }
     }
     if (walking_state==1) {
+      sizeX = 15;
       sizeY = 19;
       if (right) {
         xvel=4; //adian's code stuff
