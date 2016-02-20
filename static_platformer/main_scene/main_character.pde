@@ -22,6 +22,7 @@ class main_character extends character_base {
   float xvel=0;
   float xacc=0.05;
   float jumptime;
+  int jumps = 2;
   float wait=5;
   float back=1;
   //float X;
@@ -76,8 +77,22 @@ class main_character extends character_base {
     // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE *fixed*
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
     
-    color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling
-    if (isOnBlue(c)) yvel = 0;
+    color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
+    if (isOnBlue(c)){
+      yvel = 0;  // stops falling
+      jumps = 2;  // resets double jump
+    }
+    
+    if (wait>0) {
+      wait=wait-1;
+    }
+    
+    if (xvel<0) {      // Aidan's code stops mario from skating around : Julius
+      xvel=xvel+xacc;
+    }
+    if (xvel>0) {
+      xvel=xvel-xacc;
+    }
     
     if (keyPressed) {
       if (key == CODED) {
@@ -104,6 +119,8 @@ class main_character extends character_base {
             left = false;
           }//closes not left
         }//closes right or left
+        
+        /* old jump code being replaced with aidans newer code : Julius
         if ((keyCode == UP)&&(jumptime<=1)) {
           println("DID YOU JUMP?"+ jump);
           if (!jump) {
@@ -123,7 +140,14 @@ class main_character extends character_base {
               yvel=yvel*3.45;
             }
           }
-        }//closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
+        } */ //closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
+        
+        if (keyCode==UP&&jumps>=1&&wait<=1) {
+          yvel=-7;
+          jumps=jumps-1;
+          wait=10;
+        }
+        
       }//closes key coded
     }//closes key pressed
     if (!keyPressed) {
@@ -155,7 +179,7 @@ class main_character extends character_base {
       sizeY = 19;
       if (right) {
         xvel=4; //adian's code stuff
-        xcore=xcore+8;
+        //xcore=xcore+8;
         walking_state=2;
         //      image(marioList.get(0), xcore, ycore);
         //      delay(10);
@@ -164,7 +188,7 @@ class main_character extends character_base {
       }
       if (left) {
         xvel=-4;  //adian's code stuff
-        xcore=xcore-8;
+        //xcore=xcore-8;
         walking_state=2;
         delay(40);
         //pushMatrix();
@@ -174,12 +198,6 @@ class main_character extends character_base {
       }
       //==================================================================
       //Adian's velocity code chunk
-      if (xvel<0) {
-        xvel=xvel+xacc;
-      }
-      if (xvel>0) {
-        xvel=xvel-xacc;
-      }
       if ((ycore>=ycore+75) || (ycore<=ycore-75)) {
         exceedrange=true;
       }
@@ -192,7 +210,7 @@ class main_character extends character_base {
       sizeY = 20;
       if (right) {
         xvel=4; //adian's code stuff
-        xcore=xcore+8;
+        //xcore=xcore+8;
         walking_state=0;
         standing_state=1;
         delay(40);
@@ -200,7 +218,7 @@ class main_character extends character_base {
       }
       if (left) {
         xvel=-4; //aidan's code stuff
-        xcore=xcore-8;
+        //xcore=xcore-8;
         walking_state=0;
         standing_state=1;
         delay(40);
@@ -211,12 +229,6 @@ class main_character extends character_base {
       }
       //==================================================================
       //Adian's velocity code chunk
-      if (xvel<0) {
-        xvel=xvel+xacc;
-      }
-      if (xvel>0) {
-        xvel=xvel-xacc;
-      }
       if ((ycore>=ycore+75) || (ycore<=ycore-75)) {
         exceedrange=true;
       }
@@ -224,6 +236,7 @@ class main_character extends character_base {
         yvel=yvel*.75;
         jumptime=2;
       }
+      xcore = xcore + xvel;
       //=================================================================
       /*if(leftkeyheld) {
        Walking_state=1;
