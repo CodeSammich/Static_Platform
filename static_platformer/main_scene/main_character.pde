@@ -94,6 +94,10 @@ class main_character extends character_base {
       xvel=xvel-xacc;
     }
     
+    //if (abs(xvel) < 0.1){ // stops mario from creeping to the left after he goes right
+    //  xvel = 0;
+    //}
+    
     if (keyPressed) {
       if (key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
@@ -183,14 +187,14 @@ class main_character extends character_base {
         walking_state=2;
         //      image(marioList.get(0), xcore, ycore);
         //      delay(10);
-        delay(40);
+        // removed delay to remove lag, hope this isnt important : Julius
         image(marioList.get(1), xcore, ycore);
       }
       if (left) {
         xvel=-4;  //adian's code stuff
         //xcore=xcore-8;
         walking_state=2;
-        delay(40);
+        // removed delay
         //pushMatrix();
         //scale(-1.0, 1.0);
         image(marioList.get(1), xcore, ycore);
@@ -213,7 +217,7 @@ class main_character extends character_base {
         //xcore=xcore+8;
         walking_state=0;
         standing_state=1;
-        delay(40);
+        // removed delay
         image(marioList.get(0), xcore, ycore);
       }
       if (left) {
@@ -221,7 +225,7 @@ class main_character extends character_base {
         //xcore=xcore-8;
         walking_state=0;
         standing_state=1;
-        delay(40);
+        // removed delay
         //pushMatrix();
         //scale(-1.0, 1.0); //DONT FORGET THIS CODE FUCKS UP EVERYTHING
         image(marioList.get(0), xcore, ycore);
