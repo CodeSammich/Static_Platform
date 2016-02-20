@@ -9,9 +9,9 @@ spikey_enemy spikey;
 void setup() {
   frameRate(60);
   size(800, 600);
-  Heart = loadImage("http://lenkom.org/p/2015/12/cartoon-heart-1mzntaqe.png");
-  Wall = loadImage("https://c1.staticflickr.com/3/2788/4507998578_37a8608634.jpg");
-  Door = loadImage("http://www.lotharslair.com/gothic_door_skulls.gif");
+  Heart = loadImage("Images/heart.png");
+  Wall = loadImage("Images/wall.jpg");
+  Door = loadImage("Images/door.gif");
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
   spikey= new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0);
