@@ -6,6 +6,8 @@ class spikey_enemy extends character_base {
   int isFalling;
   int x; // location we need to find how to change
   int y; // location we need to find how to change
+  int sizeX;
+  int sizeY;
   int speed; // speed
   int direction; // direction
   float VY = 2;
@@ -16,6 +18,8 @@ class spikey_enemy extends character_base {
     is_enemy=true;
     x = width/2-50;
     y = height-200;
+    sizeX = width/14;
+    sizeY = height/10;
     speed = 2;
     direction = -1;
     frame1 = "Images/spikey.png";
@@ -51,7 +55,7 @@ class spikey_enemy extends character_base {
   }
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
-    return c == #6464E1;
+    return c == #6464FF;
   }
   void takeHit() {
     lives += -1;
@@ -71,10 +75,10 @@ class spikey_enemy extends character_base {
   void display() {
     //if(this != null){
     //println("something loaded");
-    if (direction == -1) image(img, x, y /* scale to height */);
-    if (direction == 1)  image(img2, x, y /* scale to height */);
+    if (direction == -1) image(img, x, y /* scale to height */, sizeX, sizeY);
+    if (direction == 1)  image(img2, x, y /* scale to height */, sizeX, sizeY);
     //println("direction works?!?!");
-    color c = get(x, y+50);
+    color c = get(x, y+sizeY);
     if (isOnBlue(c)) setFalling(0);
     else setFalling(1);
     if (getFalling() == 1) {

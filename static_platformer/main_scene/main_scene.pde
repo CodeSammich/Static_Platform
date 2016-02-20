@@ -18,7 +18,7 @@ void setup() {
 }
 void draw() {
   background(255);
-  //drawBackground();
+  drawBackground();
   mario.display();
   spikey.display();
 }
@@ -59,6 +59,7 @@ void drawBackground() {
   rect(100, 425, 150, 15);
   rect(550, 425, 150, 15);
   rect(300, 325, 200, 15);
+  rect(0, 585, 800, 15); 
   /*
 stroke(139,69,19);
    fill(160,82,45);

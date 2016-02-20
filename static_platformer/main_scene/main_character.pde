@@ -29,6 +29,7 @@ class main_character extends character_base {
   float VX;
   float VY;
   float G;
+  int sizeY;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
   main_character(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
@@ -56,8 +57,14 @@ class main_character extends character_base {
     marioList.add(mario2);
     xcore = 175;
     ycore = 175;
+    sizeY = 20;
   }
-
+  
+  boolean isOnBlue(color c) {
+    //return pixels[y*height+x]
+    return c == #6464FF;
+  }
+  
   void display() {
     println("You have jumped "+ jumptime+ " times");
     //println("You have a y velocity of "+ yvel);
@@ -68,6 +75,10 @@ class main_character extends character_base {
     //END OF GLOBAL ALGORITHMIC CONSTANTS
     // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE *fixed*
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
+    
+    color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling
+    if (isOnBlue(c)) yvel = 0;
+    
     if (keyPressed) {
       if (key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
@@ -129,6 +140,7 @@ class main_character extends character_base {
      }*/
     if (standing_state==1) {
       image(marioList.get(0), xcore, ycore);
+      sizeY = 20;
       if (right) {
         image(marioList.get(0), xcore, ycore);
       }
@@ -140,6 +152,7 @@ class main_character extends character_base {
       }
     }
     if (walking_state==1) {
+      sizeY = 19;
       if (right) {
         xvel=4; //adian's code stuff
         xcore=xcore+8;
@@ -176,6 +189,7 @@ class main_character extends character_base {
       }
       //=================================================================
     } else if (walking_state==2) {
+      sizeY = 20;
       if (right) {
         xvel=4; //adian's code stuff
         xcore=xcore+8;
