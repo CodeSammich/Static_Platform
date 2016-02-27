@@ -3,6 +3,7 @@ class main_character extends character_base {
   int standing_state;
   int jumping_state;
   int walking_state;
+  int saved_state=1; 
   boolean exceedrange;
   float xcore;
   float ycore;
@@ -24,6 +25,7 @@ class main_character extends character_base {
   float jumptime;
   int jumps = 2;
   float wait=5;
+  float firewait=10;
   float back=1;
   //float X;
   //float Y;
@@ -33,6 +35,7 @@ class main_character extends character_base {
   int sizeY;
   int sizeX;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
+  ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
   main_character(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
     super(condamagedeal, conname, conhealth, conlives, conjump_height, concan_jump, concan_spawn, concan_attack, concan_move, conarmor, conresistance);
@@ -67,6 +70,18 @@ class main_character extends character_base {
     return c == #6464FF;
   }
   
+  boolean getRight(){
+    return right;
+  }
+  
+  boolean getLeft(){
+    return left;
+  }
+  
+  int getSavedState(){
+    return saved_state;
+  }
+  
   void display() {
     println("You have jumped "+ jumptime+ " times");
     //println("You have a y velocity of "+ yvel);
@@ -84,6 +99,10 @@ class main_character extends character_base {
       jumps = 2;  // resets double jump
     }
     
+    if (firewait>0){ // firebolt cooldown
+      firewait=firewait-1;
+    }
+    
     if (wait>0) {
       wait=wait-1;
     }
@@ -97,6 +116,11 @@ class main_character extends character_base {
     
     if (xcore+sizeX >= 800 || xcore <= 0){
       xvel = 0;
+    }
+    
+    if(keyPressed && key == 32 && firewait <= 1){
+      createNewBolt();
+      firewait = 20;
     }
     
     //if (abs(xvel) < 0.1){ // stops mario from creeping to the left after he goes right
@@ -119,11 +143,13 @@ class main_character extends character_base {
           } // closes walking state 2
           if (keyCode == RIGHT) { //start of deef for right
             right = true;
+            saved_state = 1;
           } else if (keyCode != RIGHT) {
             right = false;
           }//closes not right
           if (keyCode == LEFT) { //start of def for left
             left = true;
+            saved_state = -1;
           } else if (keyCode != LEFT) {
             left = false;
           }//closes not left
@@ -262,5 +288,12 @@ class main_character extends character_base {
        //image(mario, imgx, imgy, imgw, imgh);
        */
     }
+  }
+  void createNewBolt(){
+    firebolts.add(new projectile_firebolt(saved_state,(int)xcore,(int)ycore));
+  }
+  
+  ArrayList<projectile_firebolt> getFireBolts(){
+    return firebolts; 
   }
 }

@@ -21,6 +21,9 @@ void draw() {
   drawBackground();
   mario.display();
   spikey.display();
+  for(projectile_firebolt x : mario.getFireBolts()){
+    x.display(); 
+  }
 }
 /*void keyPressed() {
  if (keyCode==UP&&Lives<3&&Wait<1) {
@@ -92,6 +95,7 @@ stroke(139,69,19);
     Wait=Wait-1;
   }
   //println(Wait);
+  
 }
 // Add background to display on this file here
 //merge background files into the main scene folder
@@ -100,3 +104,7 @@ stroke(139,69,19);
 
 //Updated with background
 //Added Mario Basic Display Only
+
+void stateCheck(){ // calls on each object for xy values to see which should react and how
+    
+}
