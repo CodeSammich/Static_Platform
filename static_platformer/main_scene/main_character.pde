@@ -1,3 +1,12 @@
+PImage mario1;
+PImage mario2;
+PImage mario3;
+PImage mario4;
+PImage leftmario1;
+PImage leftmario2;
+PImage leftmario3;
+PImage leftmario4;
+
 class main_character extends character_base {
   boolean is_player;
   int standing_state;
@@ -54,12 +63,26 @@ class main_character extends character_base {
     PImage spritesheet;
     spritesheet=loadImage("Images/mariospritesheet.png");
     image(spritesheet, 0, 0);
-    PImage mario = get(14, 10, 14, 20);
-    PImage mario1 = get(31, 10, 15, 19);
-    PImage mario2 = get(115, 7, 16, 22);
-    marioList.add(mario);
+    //PImage mario = get(14, 10, 14, 20);
+    //PImage mario1 = get(31, 10, 15, 19);
+    //PImage mario2 = get(115, 7, 16, 22);
+    mario1 = loadImage("Images/mario1.png");
+    mario2 = loadImage("Images/mario2.png");
+    mario3 = loadImage("Images/mario3.png");
+    mario4 = loadImage("Images/mario4.png");
+    leftmario1 = loadImage("Images/left_mario1.png");
+    leftmario2 = loadImage("Images/left_mario2.png");
+    leftmario3 = loadImage("Images/left_mario3.png");
+    leftmario4 = loadImage("Images/left_mario4.png");
+    
     marioList.add(mario1);
     marioList.add(mario2);
+    marioList.add(mario3);
+    marioList.add(mario4);
+    marioList.add(leftmario1);
+    marioList.add(leftmario2);
+    marioList.add(leftmario3);
+    marioList.add(leftmario4);
     xcore = 175;
     ycore = 175;
     sizeY = 20;
@@ -199,6 +222,7 @@ class main_character extends character_base {
      }*/
     if (standing_state==1) {
       image(marioList.get(0), xcore, ycore);
+      //image(mario1);
       sizeX = 14;
       sizeY = 20;
       if (right) {
@@ -207,7 +231,7 @@ class main_character extends character_base {
       if (left) {
         //pushMatrix();
         //scale(-1.0, 1.0);
-        image(marioList.get(0), xcore, ycore);
+        image(marioList.get(4), xcore, ycore);
         //popMatrix();
       }
     }
@@ -230,7 +254,7 @@ class main_character extends character_base {
         // removed delay
         //pushMatrix();
         //scale(-1.0, 1.0);
-        image(marioList.get(1), xcore, ycore);
+        image(marioList.get(5), xcore, ycore);
         //popMatrix();
       }
       //==================================================================
@@ -261,7 +285,7 @@ class main_character extends character_base {
         // removed delay
         //pushMatrix();
         //scale(-1.0, 1.0); //DONT FORGET THIS CODE FUCKS UP EVERYTHING
-        image(marioList.get(0), xcore, ycore);
+        image(marioList.get(4), xcore, ycore);
         //popMatrix();
       }
       //==================================================================
