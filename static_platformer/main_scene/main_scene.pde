@@ -5,8 +5,8 @@ int Lives=3;
 float Wait=10;
 main_character mario;
 spikey_enemy spikey;
-ArrayList<spikey_enemy> spikeys;
-ArrayList<projectile_firebolt> firebolts;
+ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
+ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
 
 void setup() {
   frameRate(60);
@@ -16,14 +16,17 @@ void setup() {
   Door = loadImage("Images/door.gif");
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
-  spikey= new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0);
+  spikeys.add(new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
 }
 void draw() {
   background(255);
   drawBackground();
   mario.display();
-  spikey.display();
-  for(projectile_firebolt x : mario.getFireBolts()){
+  for(spikey_enemy x : spikeys){
+    x.display(); 
+  }
+  firebolts = mario.getFireBolts();
+  for(projectile_firebolt x : firebolts){
     x.display(); 
   }
 }
@@ -108,5 +111,15 @@ stroke(139,69,19);
 //Added Mario Basic Display Only
 
 void stateCheck(){ // calls on each object for xy values to see which should react and how
-    
+    // enemy vs firebolt detection
+    /* does not work
+    for(spikey_enemy enem : spikeys){
+       for(projectile_firebolt fire : firebolts){
+          if(abs(enem.getX()-fire.getX()) <= 60 && abs(enem.getY()-fire.getY()) <= 60){
+            enem.takeHit();
+            fire = null; 
+          } 
+       } 
+    }
+    */
 }

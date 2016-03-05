@@ -23,7 +23,7 @@ class projectile_firebolt{
     player_proj = true;
     damage = 1;
     direction = condirection;
-    speed = 1;
+    speed = 2;
     name = "firebolt";
     x = conspawnx;
     y = conspawny;
@@ -47,4 +47,17 @@ class projectile_firebolt{
     }
     x += speed * direction;
   }
+<<<<<<< HEAD
 }
+=======
+  
+  int getX(){
+    return x; 
+  }
+  
+  int getY(){
+    return y; 
+  }
+  
+}
+>>>>>>> be5643c3c603c2dea625be50ac7f404cbb760d1b
