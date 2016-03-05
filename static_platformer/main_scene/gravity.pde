@@ -16,10 +16,10 @@
  background(200, 200, 255);
  }
  if (Left==true) {
- xvel=-4;
+ xvel=-1;
  }
  if (Right==true) {
- xvel=4;
+ xvel=1;
  }
  xpos=xpos+xvel;
  if (xvel<0) {

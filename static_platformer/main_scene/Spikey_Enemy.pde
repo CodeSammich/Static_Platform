@@ -1,4 +1,4 @@
-class spikey_enemy extends character_base {
+  class spikey_enemy extends character_base {
   String frame1;
   String frame2;
   PImage img;
@@ -16,8 +16,8 @@ class spikey_enemy extends character_base {
   spikey_enemy(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
     super(condamagedeal, conname, conhealth, conlives, conjump_height, concan_jump, concan_spawn, concan_attack, concan_move, conarmor, conresistance);
     is_enemy=true;
-    x = width/2-50;
-    y = height-200;
+    x = width-100;
+    y = 350;
     sizeX = width/14;
     sizeY = height/10;
     speed = 2;

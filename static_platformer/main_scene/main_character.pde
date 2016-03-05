@@ -21,7 +21,7 @@ class main_character extends character_base {
   float yvel=0;
   float xpos=100;
   float xvel=0;
-  float xacc=0.05;
+  float xacc=0.02;
   float jumptime;
   int jumps = 2;
   float wait=5;
@@ -64,24 +64,24 @@ class main_character extends character_base {
     ycore = 175;
     sizeY = 20;
   }
-  
+
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
     return c == #6464FF;
   }
-  
-  boolean getRight(){
+
+  boolean getRight() {
     return right;
   }
-  
-  boolean getLeft(){
+
+  boolean getLeft() {
     return left;
   }
-  
-  int getSavedState(){
+
+  int getSavedState() {
     return saved_state;
   }
-  
+
   void display() {
     println("You have jumped "+ jumptime+ " times");
     //println("You have a y velocity of "+ yvel);
@@ -92,41 +92,42 @@ class main_character extends character_base {
     //END OF GLOBAL ALGORITHMIC CONSTANTS
     // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE *fixed*
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
-    
+
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
-    if (isOnBlue(c) && yvel > 0){
+    if (isOnBlue(c) && yvel > 0&& R==0 && L==0) {
+      xvel=0;
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
     }
-    
-    if (firewait>0){ // firebolt cooldown
+
+    if (firewait>0) { // firebolt cooldown
       firewait=firewait-1;
     }
-    
+
     if (wait>0) {
       wait=wait-1;
     }
-    
+
     if (xvel<0) {      // Aidan's code stops mario from skating around : Julius
       xvel=xvel+xacc;
     }
     if (xvel>0) {
       xvel=xvel-xacc;
     }
-    
-    if (xcore+sizeX >= 800 || xcore <= 0){
+
+    if (xcore+sizeX >= 800 || xcore <= 0) {
       xvel = 0;
     }
-    
-    if(keyPressed && key == 32 && firewait <= 1){
+
+    if (keyPressed && key == 32 && firewait <= 1) {
       createNewBolt();
       firewait = 20;
     }
-    
+
     //if (abs(xvel) < 0.1){ // stops mario from creeping to the left after he goes right
     //  xvel = 0;
     //}
-    
+
     if (keyPressed) {
       if (key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
@@ -154,35 +155,34 @@ class main_character extends character_base {
             left = false;
           }//closes not left
         }//closes right or left
-        
+
         /* old jump code being replaced with aidans newer code : Julius
-        if ((keyCode == UP)&&(jumptime<=1)) {
-          println("DID YOU JUMP?"+ jump);
-          if (!jump) {
-            jump=true;
-            jumptime=jumptime+1;
-            yvel=-9;
-          } else if ((keyCode != UP) && (jump) && (jumptime<=1)) {
-            letgoUP=true;
-            println("DID YOU LET GO OF UP?"+ letgoUP);
-          } else if ((keyCode == UP)&&(letgoUP==true)&&(jumptime==1)) {
-            jump=true;
-            jumptime=jumptime+1;
-            yvel=-5;
-          } else if ((keyCode == UP)&&(jumptime==2)) {
-            yvel=yvel-(yvel*.75);
-            if (yvel*.75<=3) {
-              yvel=yvel*3.45;
-            }
-          }
-        } */ //closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
-        
+         if ((keyCode == UP)&&(jumptime<=1)) {
+         println("DID YOU JUMP?"+ jump);
+         if (!jump) {
+         jump=true;
+         jumptime=jumptime+1;
+         yvel=-9;
+         } else if ((keyCode != UP) && (jump) && (jumptime<=1)) {
+         letgoUP=true;
+         println("DID YOU LET GO OF UP?"+ letgoUP);
+         } else if ((keyCode == UP)&&(letgoUP==true)&&(jumptime==1)) {
+         jump=true;
+         jumptime=jumptime+1;
+         yvel=-5;
+         } else if ((keyCode == UP)&&(jumptime==2)) {
+         yvel=yvel-(yvel*.75);
+         if (yvel*.75<=3) {
+         yvel=yvel*3.45;
+         }
+         }
+         } */        //closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
+
         if (keyCode==UP&&jumps>=1&&wait<=1) {
           yvel=-7;
           jumps=jumps-1;
           wait=10;
         }
-        
       }//closes key coded
     }//closes key pressed
     if (!keyPressed) {
@@ -192,7 +192,7 @@ class main_character extends character_base {
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                                                                                                                                            /*prevxcore=xcore;
+                                                                                                                                                                                                                                                                                                /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
@@ -215,7 +215,7 @@ class main_character extends character_base {
       sizeX = 15;
       sizeY = 19;
       if (right) {
-        xvel=4; //adian's code stuff
+        xvel=2; //adian's code stuff
         //xcore=xcore+8;
         walking_state=2;
         //      image(marioList.get(0), xcore, ycore);
@@ -224,7 +224,7 @@ class main_character extends character_base {
         image(marioList.get(1), xcore, ycore);
       }
       if (left) {
-        xvel=-4;  //adian's code stuff
+        xvel=-2;  //adian's code stuff
         //xcore=xcore-8;
         walking_state=2;
         // removed delay
@@ -246,7 +246,7 @@ class main_character extends character_base {
     } else if (walking_state==2) {
       sizeY = 20;
       if (right) {
-        xvel=4; //adian's code stuff
+        xvel=3; //aidan's code stuff
         //xcore=xcore+8;
         walking_state=0;
         standing_state=1;
@@ -254,7 +254,7 @@ class main_character extends character_base {
         image(marioList.get(0), xcore, ycore);
       }
       if (left) {
-        xvel=-4; //aidan's code stuff
+        xvel=-3; //aidan's code stuff
         //xcore=xcore-8;
         walking_state=0;
         standing_state=1;
@@ -289,11 +289,11 @@ class main_character extends character_base {
        */
     }
   }
-  void createNewBolt(){
-    firebolts.add(new projectile_firebolt(saved_state,(int)xcore,(int)ycore));
+  void createNewBolt() {
+    firebolts.add(new projectile_firebolt(saved_state, (int)xcore, (int)ycore));
   }
-  
-  ArrayList<projectile_firebolt> getFireBolts(){
-    return firebolts; 
+
+  ArrayList<projectile_firebolt> getFireBolts() {
+    return firebolts;
   }
 }
