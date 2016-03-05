@@ -36,7 +36,7 @@ void draw() {
  }
  }*/
 void drawBackground() { 
-  image(Wall, 0, 0, 800, 600);
+  //image(Wall, 0, 0, 800, 600);
   //Lives
   stroke(139, 69, 19);
   strokeWeight(5);
@@ -56,7 +56,7 @@ void drawBackground() {
   if (Lives>=3) {
     image(Heart, 775, 10, 20, 20);
   }
-  image(Door, 300, 355, 200, 280);
+  //image(Door, 300, 355, 200, 280);
   noStroke();
   fill(100, 100, 255);
   rect(100, 425, 150, 15);

@@ -215,7 +215,7 @@ class main_character extends character_base {
       sizeX = 15;
       sizeY = 19;
       if (right) {
-        xvel=4; //adian's code stuff
+        xvel=4.0; //adian's code stuff
         //xcore=xcore+8;
         walking_state=2;
         //      image(marioList.get(0), xcore, ycore);
@@ -224,7 +224,7 @@ class main_character extends character_base {
         image(marioList.get(1), xcore, ycore);
       }
       if (left) {
-        xvel=-4;  //adian's code stuff
+        xvel=-4.0;  //adian's code stuff
         //xcore=xcore-8;
         walking_state=2;
         // removed delay
@@ -246,7 +246,7 @@ class main_character extends character_base {
     } else if (walking_state==2) {
       sizeY = 20;
       if (right) {
-        xvel=4; //adian's code stuff
+        xvel=4.0; //adian's code stuff
         //xcore=xcore+8;
         walking_state=0;
         standing_state=1;
@@ -254,7 +254,7 @@ class main_character extends character_base {
         image(marioList.get(0), xcore, ycore);
       }
       if (left) {
-        xvel=-4; //aidan's code stuff
+        xvel=-4.0; //aidan's code stuff
         //xcore=xcore-8;
         walking_state=0;
         standing_state=1;
