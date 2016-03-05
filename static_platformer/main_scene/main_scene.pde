@@ -5,6 +5,8 @@ int Lives=3;
 float Wait=10;
 main_character mario;
 spikey_enemy spikey;
+ArrayList<spikey_enemy> spikeys;
+ArrayList<projectile_firebolt> firebolts;
 
 void setup() {
   frameRate(60);
