@@ -47,4 +47,13 @@ class projectile_firebolt{
     }
     x += speed * direction;
   }
+  
+  int getX(){
+    return x; 
+  }
+  
+  int getY(){
+    return y; 
+  }
+  
 }
