@@ -85,7 +85,6 @@
     if(y < 325-sizeY && y >= 325-2*sizeY) setSection(5);
     if(y < 325-2*sizeY && y >= 325-3*sizeY) setSection(6);
     if(y < 325-3*sizeY && y >= 325-4*sizeY) setSection(7);
-    println(section);
   }
   void display() {
     //if(this != null){

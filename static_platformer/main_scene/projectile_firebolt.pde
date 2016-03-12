@@ -16,6 +16,7 @@ class projectile_firebolt{
   int direction;
   int x;
   int y;
+  int section;
   int sizeX;
   int sizeY;
   projectile_firebolt(int condirection, int conspawnx, int conspawny){
@@ -33,6 +34,7 @@ class projectile_firebolt{
     img2 = loadImage(frameL2);
     img3 = loadImage(frameR1);
     img4 = loadImage(frameR2);
+    updateSection();
   }
   
   void display(){
@@ -55,5 +57,18 @@ class projectile_firebolt{
   int getY(){
     return y; 
   }
-  
+  void setSection(int change){
+    section = change; 
+  }
+  void updateSection(){
+    if(y < 0 && y >= height-sizeY) setSection(0);
+    if(y < height-sizeY && y >= 425) setSection(1);
+    if(y < 425 && y >= 425-sizeY) setSection(2);
+    if(y < 425-sizeY && y >= 325) setSection(3);
+    if(y < 325 && y >= 325-sizeY) setSection(4);
+    if(y < 325-sizeY && y >= 325-2*sizeY) setSection(5);
+    if(y < 325-2*sizeY && y >= 325-3*sizeY) setSection(6);
+    if(y < 325-3*sizeY && y >= 325-4*sizeY) setSection(7);
+    println(section);
+  }
 }
