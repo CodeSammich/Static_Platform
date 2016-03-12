@@ -213,6 +213,10 @@ class main_character extends character_base {
       standing_state=1;
       walking_state=0;
     } //closes not key pressed
+    
+    if (yvel == 0) {
+      jumping_state = 0;
+    }
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
@@ -221,7 +225,7 @@ class main_character extends character_base {
      delay(1);
      xcore=newxcore;
      }*/
-    if (standing_state==1) {
+    if (standing_state==1 && jumping_state == 0) {
       //image(mario1);
       sizeX = 16;
       sizeY = 82;
@@ -235,7 +239,21 @@ class main_character extends character_base {
         //popMatrix();
       }
     }
-    if (walking_state==1) {
+    if (jumping_state == 1) {
+      //image(mario1);
+      sizeX = 16;
+      sizeY = 82;
+      if (right) {
+        image(marioList.get(3), xcore, ycore);
+      }
+      if (left) {
+        //pushMatrix();
+        //scale(-1.0, 1.0);
+        image(marioList.get(7), xcore, ycore);
+        //popMatrix();
+      }
+    }
+    if (walking_state==1 && jumping_state == 0) {
       sizeX = 16;
       sizeY = 82;
       if (right) {
