@@ -223,8 +223,8 @@ class main_character extends character_base {
     if (standing_state==1) {
       image(marioList.get(0), xcore, ycore);
       //image(mario1);
-      sizeX = 14;
-      sizeY = 20;
+      sizeX = 16;
+      sizeY = 82;
       if (right) {
         image(marioList.get(0), xcore, ycore);
       }
@@ -236,8 +236,8 @@ class main_character extends character_base {
       }
     }
     if (walking_state==1) {
-      sizeX = 15;
-      sizeY = 19;
+      sizeX = 16;
+      sizeY = 82;
       if (right) {
         xvel=4.0; //adian's code stuff
         //xcore=xcore+8;
@@ -268,7 +268,7 @@ class main_character extends character_base {
       }
       //=================================================================
     } else if (walking_state==2) {
-      sizeY = 20;
+      sizeY = 82;
       if (right) {
         xvel=4.0; //adian's code stuff
         //xcore=xcore+8;
