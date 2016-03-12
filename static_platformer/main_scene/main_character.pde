@@ -9,8 +9,8 @@ PImage leftmario4;
 
 class main_character extends character_base {
   boolean is_player;
-  int standing_state;
-  int jumping_state;
+  int standing_state = 0;
+  int jumping_state = 0;
   int walking_state;
   int saved_state=1; 
   boolean exceedrange;
@@ -205,6 +205,7 @@ class main_character extends character_base {
           yvel=-7;
           jumps=jumps-1;
           wait=10;
+          jumping_state = 1;
         }
       }//closes key coded
     }//closes key pressed
