@@ -221,7 +221,6 @@ class main_character extends character_base {
      xcore=newxcore;
      }*/
     if (standing_state==1) {
-      image(marioList.get(0), xcore, ycore);
       //image(mario1);
       sizeX = 16;
       sizeY = 82;
