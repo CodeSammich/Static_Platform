@@ -7,7 +7,7 @@ float yacc=0.15;
 float yvel=1;
 float xpos=100;
 float xvel=0;
-float xacc=0.04;
+float xacc=0.035;
 int jump=2;
 float wait=5;
 float back=1;
@@ -18,7 +18,7 @@ void setup() {
   marioL = loadImage("marioL.png");
 }
 void draw() {
-  println(xvel);
+  println(ypos);
   if (back==1) {
     background(200, 200, 255);
   }
@@ -44,9 +44,15 @@ void draw() {
   }
   ypos=ypos+yvel;
   yvel=yvel+yacc;
+  if (ypos>570) {
+    xacc=0.1;
+  }
+  else{
+  xacc=0.035;
+  }
 
   if (ypos>=575) {
-    yvel=-7;
+    yvel=-0.1;
     jump=2;
   }
   if (wait>0) {
@@ -71,8 +77,8 @@ void draw() {
   text(jump, 785, 20);
   strokeWeight(1);
 
-  if(dist(0,0,xvel,0)<0.1){
-  xvel=0;
+  if (dist(0, 0, xvel, 0)<0.1) {
+    xvel=0;
   }
 }
 void keyPressed() {
