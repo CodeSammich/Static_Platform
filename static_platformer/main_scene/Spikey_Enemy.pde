@@ -54,6 +54,9 @@
   int getFalling() {
     return isFalling;
   }
+  int getSection(){
+    return section; 
+  }
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
     return c == #6464FF;
@@ -103,7 +106,9 @@
     if ((x <= 0)||(x >= width-50 /* scale to width */)) setDirection(getDirection() * -1);
     if (mousePressed) this.takeHit();
     if (getLives() < 1) super.kill(this);
+    
     updateSection();
+    println(lives);
   }
   //}
 }

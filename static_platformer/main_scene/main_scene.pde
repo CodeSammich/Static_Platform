@@ -22,13 +22,14 @@ void draw() {
   background(255);
   drawBackground();
   mario.display();
-  for(spikey_enemy x : spikeys){
-    x.display(); 
+  for (spikey_enemy x : spikeys) {
+    x.display();
   }
   firebolts = mario.getFireBolts();
-  for(projectile_firebolt x : firebolts){
-    x.display(); 
+  for (projectile_firebolt x : firebolts) {
+    x.display();
   }
+  stateCheck();
 }
 /*void keyPressed() {
  if (keyCode==UP&&Lives<3&&Wait<1) {
@@ -100,7 +101,6 @@ stroke(139,69,19);
     Wait=Wait-1;
   }
   //println(Wait);
-  
 }
 // Add background to display on this file here
 //merge background files into the main scene folder
@@ -110,16 +110,17 @@ stroke(139,69,19);
 //Updated with background
 //Added Mario Basic Display Only
 
-void stateCheck(){ // calls on each object for xy values to see which should react and how
-    // enemy vs firebolt detection
-    /* does not work
-    for(spikey_enemy enem : spikeys){
-       for(projectile_firebolt fire : firebolts){
-          if(abs(enem.getX()-fire.getX()) <= 60 && abs(enem.getY()-fire.getY()) <= 60){
-            enem.takeHit();
-            fire = null; 
-          } 
-       } 
+void stateCheck() { // calls on each object for xy values to see which should react and how
+  // enemy vs firebolt detection
+  if (spikeys.size() != 0 || firebolts.size() != 0) {
+    for (spikey_enemy enem : spikeys) {
+      for (projectile_firebolt fire : firebolts) {
+        if (/*abs(enem.getX()-fire.getX()) <= 60 &&*/ enem.getSection() == fire.getSection()) {
+          spikeys.remove(enem);
+          firebolts.remove(fire);
+        }
+      }
     }
-    */
+  }
 }
+

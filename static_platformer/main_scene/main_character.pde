@@ -106,7 +106,7 @@ class main_character extends character_base {
   }
 
   void display() {
-    println("You have jumped "+ jumptime+ " times");
+    //println("You have jumped "+ jumptime+ " times");
     //println("You have a y velocity of "+ yvel);
     //GLOBAL ALGORITHMIC CONSTANTS
     xcore=xcore+xvel; // this is from aidans code, sets the xpos with accurate accel and velocity factors
