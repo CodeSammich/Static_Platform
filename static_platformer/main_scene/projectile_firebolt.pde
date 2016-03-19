@@ -24,7 +24,7 @@ class projectile_firebolt{
     player_proj = true;
     damage = 1;
     direction = condirection;
-    speed = 2;
+    speed = 3;
     name = "firebolt";
     x = conspawnx;
     y = conspawny;

@@ -43,6 +43,7 @@ class main_character extends character_base {
   float G;
   int sizeY;
   int sizeX;
+  int score;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
   ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
@@ -86,6 +87,7 @@ class main_character extends character_base {
     xcore = 175;
     ycore = 175;
     sizeY = 20;
+    score = 0;
   }
 
   boolean isOnBlue(color c) {
@@ -333,6 +335,14 @@ class main_character extends character_base {
   }
   void createNewBolt() {
     firebolts.add(new projectile_firebolt(saved_state, (int)xcore, (int)ycore));
+  }
+  
+  void changeScore(int change){
+    score += change; 
+  }
+  
+  int getScore(){
+    return score; 
   }
 
   ArrayList<projectile_firebolt> getFireBolts() {

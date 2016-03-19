@@ -55,6 +55,16 @@ void drawBackground() {
   text("Lives:", 660, 25);
   fill(255, 40, 40);
   noStroke();
+  // Score
+  stroke(139, 69, 19);
+  strokeWeight(5);
+  fill(160, 82, 45);
+  rect(490, -3, 155, 40);
+  textSize(23);
+  fill(218, 165, 32);
+  text("Score: "+mario.getScore(), 500, 25);
+  fill(255, 40, 40);
+  noStroke();
   if (Lives>=1) {
     image(Heart, 725, 10, 20, 20);
   }
@@ -119,7 +129,8 @@ void stateCheck() { // calls on each object for xy values to see which should re
   for(projectile_firebolt f : deathF){
     firebolts.remove(f); 
   }
-        
+  deathF = new ArrayList<projectile_firebolt>();
+  deathS = new ArrayList<spikey_enemy>();
   // enemy vs firebolt detection
   if (spikeys.size() != 0 || firebolts.size() != 0) {
     for (spikey_enemy enem : spikeys) {
@@ -127,6 +138,7 @@ void stateCheck() { // calls on each object for xy values to see which should re
         if (abs(enem.getX()-fire.getX()) <= 60 && enem.getSection() == fire.getSection()) {
           deathS.add(enem);
           deathF.add(fire);
+          mario.changeScore(10);
         }
       }
     }
