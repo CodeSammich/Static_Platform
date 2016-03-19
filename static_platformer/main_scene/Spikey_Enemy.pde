@@ -108,7 +108,6 @@
     if (getLives() < 1) super.kill(this);
     
     updateSection();
-    println(lives);
   }
   //}
 }

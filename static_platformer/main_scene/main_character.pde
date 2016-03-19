@@ -44,6 +44,7 @@ class main_character extends character_base {
   int sizeY;
   int sizeX;
   int score;
+  int section;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
   ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
@@ -117,6 +118,7 @@ class main_character extends character_base {
     //END OF GLOBAL ALGORITHMIC CONSTANTS
     // IF STANDING STATE AND WALKING STATE = 0 THEN MARIO INVISIBLE *fixed*
     // THIS IS THE START OF THE LOGIC LOOP FOR COORDINATE UPDATING
+    updateSection();
 
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
     if (isOnBlue(c) && yvel > 0&& R==0 && L==0) {
@@ -344,8 +346,46 @@ class main_character extends character_base {
   int getScore(){
     return score; 
   }
+  
+  float getX(){
+    return xcore; 
+  }
+  
+  float getY(){
+    return ycore; 
+  }
 
   ArrayList<projectile_firebolt> getFireBolts() {
     return firebolts;
+  }
+  
+  void setSection(int change){
+    section = change; 
+  }
+  void updateSection(){
+    if(ycore < 0 && ycore >= height-sizeY) setSection(0);
+    if(ycore < height-sizeY && ycore >= 425) setSection(1);
+    if(ycore < 425 && ycore >= 425-sizeY) setSection(2);
+    if(ycore < 425-sizeY && ycore >= 325) setSection(3);
+    if(ycore < 325 && ycore >= 325-sizeY) setSection(4);
+    if(ycore < 325-sizeY && ycore >= 325-2*sizeY) setSection(5);
+    if(ycore < 325-2*sizeY && ycore >= 325-3*sizeY) setSection(6);
+    if(ycore < 325-3*sizeY && ycore >= 325-4*sizeY) setSection(7);
+  }
+  int getSection(){
+    return section; 
+  }
+  
+  void takeHit(){
+     lives--; 
+  }
+  void setXVel(float change){
+     xvel = change; 
+  }
+  void setYVel(float change){
+     yvel = change; 
+  }
+  int getLives(){
+     return lives; 
   }
 }

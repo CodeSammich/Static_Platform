@@ -32,6 +32,7 @@ void draw() {
     x.display();
   }
   stateCheck();
+  println(mario.getLives());
 }
 /*void keyPressed() {
  if (keyCode==UP&&Lives<3&&Wait<1) {
@@ -142,6 +143,22 @@ void stateCheck() { // calls on each object for xy values to see which should re
         }
       }
     }
+  }
+  // enemy vs main character detection
+  for(spikey_enemy enem : spikeys){
+    boolean already = false; // stops both functions from throwing mario back and forth
+    if(abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 60){
+      mario.takeHit();
+      if(mario.getX() > enem.getX() && !already){
+        mario.setXVel(-15);
+        already = true;
+      }
+      if(mario.getX() < enem.getX() && !already){
+        mario.setXVel(15);
+        already = true;
+      }
+      mario.setYVel(-2);
+    }  
   }
 }
 
