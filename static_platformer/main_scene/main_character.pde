@@ -76,7 +76,7 @@ class main_character extends character_base {
     leftmario2 = loadImage("Images/left_mario2.png");
     leftmario3 = loadImage("Images/left_mario3.png");
     leftmario4 = loadImage("Images/left_mario4.png");
-    
+
     marioList.add(mario1);
     marioList.add(mario2);
     marioList.add(mario3);
@@ -205,26 +205,54 @@ class main_character extends character_base {
          }
          } */        //closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
 
-        if (keyCode==UP&&jumps>=1&&wait<=1) {
+        if (keyCode==UP&&jumps>=1&&wait<=1) { //start
           yvel=-7;
           jumps=jumps-1;
           wait=10;
           jumping_state = 1;
-        }
+          if ((walking_state==1 || walking_state==2) && (jumping_state==1)) { //open2
+            yvel=-7;
+            jumps=jumps-1;
+            wait=10;
+            jumping_state = 1;
+            if (right && jumping_state==1) { //open3
+              xvel=xvel+0.1;
+            } //close3
+            if (left && jumping_state==1) { //open4
+              xvel=xvel-0.1;
+            }//close 4
+          }//close2
+        } else if (keyCode!=UP&&(right||left)&&(jumping_state==1)) {
+          if (right && jumping_state==1) { //open3
+            xvel=xvel+1.41;
+            println("Mario has an X Velocity of"+xvel);
+            if (xvel>=7) {
+              xvel=6.5;
+            }
+          } //close3
+          if (left && jumping_state==1) { //open4
+            xvel=xvel-1.41;
+            println(xvel);
+            println("Mario has an X Velocity of"+xvel);
+            if (xvel<=-7) {
+              xvel=-6.5;
+            }
+          }//close 4
+        }//closes start
       }//closes key coded
     }//closes key pressed
     if (!keyPressed) {
       standing_state=1;
       walking_state=0;
     } //closes not key pressed
-    
+
     if (yvel == 0) {
       jumping_state = 0;
     }
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                                                                                                                                                /*prevxcore=xcore;
+                                                                                                                                                                                                                                                                                                    /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
@@ -338,54 +366,54 @@ class main_character extends character_base {
   void createNewBolt() {
     firebolts.add(new projectile_firebolt(saved_state, (int)xcore, (int)ycore));
   }
-  
-  void changeScore(int change){
-    score += change; 
+
+  void changeScore(int change) {
+    score += change;
   }
-  
-  int getScore(){
-    return score; 
+
+  int getScore() {
+    return score;
   }
-  
-  float getX(){
-    return xcore; 
+
+  float getX() {
+    return xcore;
   }
-  
-  float getY(){
-    return ycore; 
+
+  float getY() {
+    return ycore;
   }
 
   ArrayList<projectile_firebolt> getFireBolts() {
     return firebolts;
   }
-  
-  void setSection(int change){
-    section = change; 
+
+  void setSection(int change) {
+    section = change;
   }
-  void updateSection(){
-    if(ycore < 0 && ycore >= height-sizeY) setSection(0);
-    if(ycore < height-sizeY && ycore >= 425) setSection(1);
-    if(ycore < 425 && ycore >= 425-sizeY) setSection(2);
-    if(ycore < 425-sizeY && ycore >= 325) setSection(3);
-    if(ycore < 325 && ycore >= 325-sizeY) setSection(4);
-    if(ycore < 325-sizeY && ycore >= 325-2*sizeY) setSection(5);
-    if(ycore < 325-2*sizeY && ycore >= 325-3*sizeY) setSection(6);
-    if(ycore < 325-3*sizeY && ycore >= 325-4*sizeY) setSection(7);
+  void updateSection() {
+    if (ycore < 0 && ycore >= height-sizeY) setSection(0);
+    if (ycore < height-sizeY && ycore >= 425) setSection(1);
+    if (ycore < 425 && ycore >= 425-sizeY) setSection(2);
+    if (ycore < 425-sizeY && ycore >= 325) setSection(3);
+    if (ycore < 325 && ycore >= 325-sizeY) setSection(4);
+    if (ycore < 325-sizeY && ycore >= 325-2*sizeY) setSection(5);
+    if (ycore < 325-2*sizeY && ycore >= 325-3*sizeY) setSection(6);
+    if (ycore < 325-3*sizeY && ycore >= 325-4*sizeY) setSection(7);
   }
-  int getSection(){
-    return section; 
+  int getSection() {
+    return section;
   }
-  
-  void takeHit(){
-     lives--; 
+
+  void takeHit() {
+    lives--;
   }
-  void setXVel(float change){
-     xvel = change; 
+  void setXVel(float change) {
+    xvel = change;
   }
-  void setYVel(float change){
-     yvel = change; 
+  void setYVel(float change) {
+    yvel = change;
   }
-  int getLives(){
-     return lives; 
+  int getLives() {
+    return lives;
   }
 }
