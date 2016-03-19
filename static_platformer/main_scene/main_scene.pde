@@ -1,7 +1,6 @@
 PImage Heart;
 PImage Door;
 PImage Wall;
-int Lives=3;
 float Wait=10;
 main_character mario;
 spikey_enemy spikey;
@@ -66,13 +65,13 @@ void drawBackground() {
   text("Score: "+mario.getScore(), 500, 25);
   fill(255, 40, 40);
   noStroke();
-  if (Lives>=1) {
+  if (mario.getLives()>=1) {
     image(Heart, 725, 10, 20, 20);
   }
-  if (Lives>=2) {
+  if (mario.getLives()>=2) {
     image(Heart, 750, 10, 20, 20);
   }
-  if (Lives>=3) {
+  if (mario.getLives()>=3) {
     image(Heart, 775, 10, 20, 20);
   }
   //image(Door, 300, 355, 200, 280);
@@ -124,6 +123,7 @@ stroke(139,69,19);
 //Added Mario Basic Display Only
 
 void stateCheck() { // calls on each object for xy values to see which should react and how
+  int wait = 0; // cooldown for mario taking hits
   for(spikey_enemy e : deathS){
     spikeys.remove(e);
   }
@@ -147,18 +147,20 @@ void stateCheck() { // calls on each object for xy values to see which should re
   // enemy vs main character detection
   for(spikey_enemy enem : spikeys){
     boolean already = false; // stops both functions from throwing mario back and forth
-    if(abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 60){
+    if(abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0){
       mario.takeHit();
-      if(mario.getX() > enem.getX() && !already){
-        mario.setXVel(-15);
-        already = true;
-      }
-      if(mario.getX() < enem.getX() && !already){
+      if(mario.getX() > enem.getX()+width/14 && !already){
         mario.setXVel(15);
         already = true;
       }
-      mario.setYVel(-2);
+      if(mario.getX() < enem.getX() && !already){
+        mario.setXVel(-15);
+        already = true;
+      }
+      mario.setYVel(-4);
+      wait = 1000;
     }  
   }
+  wait--;
 }
 
