@@ -158,9 +158,9 @@ void stateCheck() { // calls on each object for xy values to see which should re
         already = true;
       }
       mario.setYVel(-4);
-      wait = 1000;
-    }  
-  }
+      wait = 100000000;
+    }
   wait--;
+  }
 }
 
