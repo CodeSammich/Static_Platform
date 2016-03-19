@@ -146,21 +146,15 @@ void stateCheck() { // calls on each object for xy values to see which should re
   }
   // enemy vs main character detection
   for(spikey_enemy enem : spikeys){
-    boolean already = false; // stops both functions from throwing mario back and forth
     if(abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0){
       mario.takeHit();
-      if(mario.getX() > enem.getX()+width/14 && !already){
+      if(mario.getX() > enem.getX()+width/28){
         mario.setXVel(15);
-        already = true;
       }
-      if(mario.getX() < enem.getX() && !already){
+      if(mario.getX() < enem.getX()+width/28){
         mario.setXVel(-15);
-        already = true;
       }
       mario.setYVel(-4);
-      wait = 100000000;
     }
-  wait--;
   }
 }
-
