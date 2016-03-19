@@ -7,6 +7,8 @@ main_character mario;
 spikey_enemy spikey;
 ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
 ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
+ArrayList<spikey_enemy> deathS = new ArrayList<spikey_enemy>();
+ArrayList<projectile_firebolt> deathF = new ArrayList<projectile_firebolt>();
 
 void setup() {
   frameRate(60);
@@ -111,13 +113,20 @@ stroke(139,69,19);
 //Added Mario Basic Display Only
 
 void stateCheck() { // calls on each object for xy values to see which should react and how
+  for(spikey_enemy e : deathS){
+    spikeys.remove(e);
+  }
+  for(projectile_firebolt f : deathF){
+    firebolts.remove(f); 
+  }
+        
   // enemy vs firebolt detection
   if (spikeys.size() != 0 || firebolts.size() != 0) {
     for (spikey_enemy enem : spikeys) {
       for (projectile_firebolt fire : firebolts) {
-        if (/*abs(enem.getX()-fire.getX()) <= 60 &&*/ enem.getSection() == fire.getSection()) {
-          spikeys.remove(enem);
-          firebolts.remove(fire);
+        if (abs(enem.getX()-fire.getX()) <= 60 && enem.getSection() == fire.getSection()) {
+          deathS.add(enem);
+          deathF.add(fire);
         }
       }
     }
