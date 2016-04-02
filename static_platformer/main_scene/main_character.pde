@@ -13,6 +13,8 @@ class main_character extends character_base {
   int jumping_state = 0;
   int walking_state;
   int saved_state=1; 
+  int lockwait;
+  int invinciblewait;
   boolean exceedrange;
   float xcore;
   float ycore;
@@ -22,6 +24,8 @@ class main_character extends character_base {
   boolean crouch;
   boolean lrLock;
   boolean letgoUP;
+  boolean locked;
+  boolean invincible;
   float charSpeed;
   int L=0;
   int R=0;
@@ -91,6 +95,31 @@ class main_character extends character_base {
     score = 0;
   }
 
+  void lock() {
+    locked = true;
+    //invincible = true;
+    lockwait = 10;
+    //invinciblewait = 30;
+  }
+
+  void locktimer() {
+    lockwait -= 1;
+  }
+
+  void invincibletimer() {
+    invinciblewait -= 1;
+  }
+
+  void unlock() {
+    if (lockwait < 1)
+      locked = false;
+  }
+
+  void invincibleOff() {
+    if (invinciblewait < 1)
+      invincible = false;
+  }
+
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
     return c == #6464FF;
@@ -155,32 +184,35 @@ class main_character extends character_base {
     //  xvel = 0;
     //}
 
-    if (keyPressed) {
+    if (right)
+      println("right");
+    if (left)
+      println("left");
+
+    if (keyPressed /*&& !locked*/) {
       if (key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
           if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
             walking_state=1; // SET THE WALKING STATE TO POSITIVE
             standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
-            /*prevxcore=xcore; //The previous coordinate is set to the coordinate we are in now
-             newxcore=xcore+10;//THe future coordinate is set to the coordinate we are in now plus 10 more since we are going right
-             delay(1);//add a supersmall delay to prevent overloading of code
-             xcore=newxcore;*/            // current coordinate is set to the future one
           } else if (walking_state==2) {
             //walking_state=1;
             //tanding_state=0;
           } // closes walking state 2
           if (keyCode == RIGHT) { //start of deef for right
+            left = false;
             right = true;
             saved_state = 1;
-          } else if (keyCode != RIGHT) {
-            right = false;
-          }//closes not right
+           } // else if (keyCode != RIGHT) {
+          //   right = false;
+          // }//closes not right
           if (keyCode == LEFT) { //start of def for left
+            right = false;
             left = true;
             saved_state = -1;
-          } else if (keyCode != LEFT) {
-            left = false;
-          }//closes not left
+           } // else if (keyCode != LEFT) {
+          //   left = false;
+          // }//closes not left
         }//closes right or left
 
         /* old jump code being replaced with aidans newer code : Julius
@@ -252,7 +284,7 @@ class main_character extends character_base {
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                                                                                                                                                    /*prevxcore=xcore;
+                                                                                                                                                                                                                                                                                                                            /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
@@ -405,7 +437,8 @@ class main_character extends character_base {
   }
 
   void takeHit() {
-    lives--;
+    if (!invincible)
+      lives--;
   }
   void setXVel(float change) {
     xvel = change;
@@ -417,3 +450,4 @@ class main_character extends character_base {
     return lives;
   }
 }
+

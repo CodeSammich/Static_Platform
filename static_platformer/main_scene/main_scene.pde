@@ -31,7 +31,8 @@ void draw() {
     x.display();
   }
   stateCheck();
-  println(mario.getLives());
+  resetter();
+  //println(mario.getLives());
 }
 /*void keyPressed() {
  if (keyCode==UP&&Lives<3&&Wait<1) {
@@ -124,11 +125,11 @@ stroke(139,69,19);
 
 void stateCheck() { // calls on each object for xy values to see which should react and how
   int wait = 0; // cooldown for mario taking hits
-  for(spikey_enemy e : deathS){
+  for (spikey_enemy e : deathS) {
     spikeys.remove(e);
   }
-  for(projectile_firebolt f : deathF){
-    firebolts.remove(f); 
+  for (projectile_firebolt f : deathF) {
+    firebolts.remove(f);
   }
   deathF = new ArrayList<projectile_firebolt>();
   deathS = new ArrayList<spikey_enemy>();
@@ -145,16 +146,25 @@ void stateCheck() { // calls on each object for xy values to see which should re
     }
   }
   // enemy vs main character detection
-  for(spikey_enemy enem : spikeys){
-    if(abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0){
+  for (spikey_enemy enem : spikeys) {
+    if (abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0) {
       mario.takeHit();
-      if(mario.getX() > enem.getX()+width/28){
+      if (mario.getX() > enem.getX()+width/28) {
         mario.setXVel(15);
       }
-      if(mario.getX() < enem.getX()+width/28){
+      if (mario.getX() < enem.getX()+width/28) {
         mario.setXVel(-15);
       }
       mario.setYVel(-4);
+      //mario.lock();
     }
   }
 }
+
+void resetter() {
+  //mario.locktimer();
+  //mario.invincibletimer();
+  //mario.unlock();
+  //mario.invincibleOff();
+}
+
