@@ -21,7 +21,7 @@ class main_character extends character_base {
   boolean left;
   boolean right;
   boolean jump;
-  boolean crouch;
+  boolean down;
   boolean lrLock;
   boolean letgoUP;
   boolean locked;
@@ -184,13 +184,14 @@ class main_character extends character_base {
     //  xvel = 0;
     //}
 
-    if (right)
-      println("right");
-    if (left)
-      println("left");
-
-    if (keyPressed /*&& !locked*/) {
-      if (key == CODED) {
+    if (right){
+      //println("right");
+    }
+    if (left){
+      //println("left");
+//===========================================================================================================================================
+    }
+    if (keyPressed && key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
           if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
             walking_state=1; // SET THE WALKING STATE TO POSITIVE
@@ -210,33 +211,14 @@ class main_character extends character_base {
             right = false;
             left = true;
             saved_state = -1;
-           } // else if (keyCode != LEFT) {
-          //   left = false;
-          // }//closes not left
+           }
+          if (keyCode == DOWN) {
+            down = true;
+          } else if(keyCode != DOWN) {
+            down = false;
+          }
         }//closes right or left
-
-        /* old jump code being replaced with aidans newer code : Julius
-         if ((keyCode == UP)&&(jumptime<=1)) {
-         println("DID YOU JUMP?"+ jump);
-         if (!jump) {
-         jump=true;
-         jumptime=jumptime+1;
-         yvel=-9;
-         } else if ((keyCode != UP) && (jump) && (jumptime<=1)) {
-         letgoUP=true;
-         println("DID YOU LET GO OF UP?"+ letgoUP);
-         } else if ((keyCode == UP)&&(letgoUP==true)&&(jumptime==1)) {
-         jump=true;
-         jumptime=jumptime+1;
-         yvel=-5;
-         } else if ((keyCode == UP)&&(jumptime==2)) {
-         yvel=yvel-(yvel*.75);
-         if (yvel*.75<=3) {
-         yvel=yvel*3.45;
-         }
-         }
-         } */        //closes up code which should be running seperate from "right or left" code so you can jump without having to move left or right first
-
+//===================================================================================================================================================
         if (keyCode==UP&&jumps>=1&&wait<=1) { //start
           yvel=-7;
           jumps=jumps-1;
@@ -272,7 +254,6 @@ class main_character extends character_base {
           }//close 4
         }//closes start
       }//closes key coded
-    }//closes key pressed
     if (!keyPressed) {
       standing_state=1;
       walking_state=0;
@@ -450,4 +431,3 @@ class main_character extends character_base {
     return lives;
   }
 }
-
