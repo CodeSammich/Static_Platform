@@ -151,7 +151,7 @@ class main_character extends character_base {
 
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
     if (isOnBlue(c) && yvel > 0&& R==0 && L==0) {
-      xvel=0;
+       ;
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
     }
@@ -184,13 +184,7 @@ class main_character extends character_base {
     //  xvel = 0;
     //}
 
-    if (right){
-      //println("right");
-    }
-    if (left){
-      //println("left");
 //===========================================================================================================================================
-    }
     if (keyPressed && key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
           if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
@@ -239,7 +233,6 @@ class main_character extends character_base {
         } else if ((keyCode==RIGHT||keyCode==LEFT)&&(right||left)&&(jumping_state==1)) {
           if (right && jumping_state==1) { //open3
             xvel=xvel+1.41;
-            println("Mario has an X Velocity of"+xvel);
             if (xvel>=7) {
               xvel=6.5;
             }
@@ -247,7 +240,6 @@ class main_character extends character_base {
           if (left && jumping_state==1) { //open4
             xvel=xvel-1.41;
             println(xvel);
-            println("Mario has an X Velocity of"+xvel);
             if (xvel<=-7) {
               xvel=-6.5;
             }
