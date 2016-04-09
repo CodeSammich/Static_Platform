@@ -184,15 +184,21 @@ class main_character extends character_base {
           } else if (walking_state==2) {
           } // closes walking state 2
           if (keyCode == RIGHT) { //start of deef for right
-            left = false;
             right = true;
             saved_state = 1;
-           } 
+           }
+           else {
+             right = false;
+           }
+           
           if (keyCode == LEFT) { //start of def for left
-            right = false;
             left = true;
             saved_state = -1;
            }
+           else {
+             left = false;
+           }
+           
           if (keyCode == DOWN) {
             down = true;
           } else if(keyCode != DOWN) {
