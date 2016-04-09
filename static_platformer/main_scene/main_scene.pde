@@ -1,6 +1,7 @@
 PImage Heart;
 PImage Door;
 PImage Wall;
+PImage GameOver;
 float Wait=10;
 main_character mario;
 spikey_enemy spikey;
@@ -15,29 +16,33 @@ void setup() {
   Heart = loadImage("Images/heart.png");
   Wall = loadImage("Images/wall.jpg");
   Door = loadImage("Images/door.gif");
+  GameOver = loadImage("Images/gameover.jpg");
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
   spikeys.add(new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
 }
 void draw() {
-  background(255);
-  drawBackground();
-  mario.display();
-  for (spikey_enemy x : spikeys) {
-    x.display();
+  if (mario.getDeath()==false) {
+    background(255);
+    drawBackground();
+    mario.display();
+    for (spikey_enemy x : spikeys) {
+      x.display();
+    }
+    firebolts = mario.getFireBolts();
+    for (projectile_firebolt x : firebolts) {
+      x.display();
+    }
+    stateCheck();
+    resetter();
+    //println(mario.getLives());
+  } else {
+    image(GameOver, 0, 0, 800, 600 );
   }
-  firebolts = mario.getFireBolts();
-  for (projectile_firebolt x : firebolts) {
-    x.display();
-  }
-  stateCheck();
-  resetter();
-  //println(mario.getLives());
 }
 
 void drawBackground() { 
   //image(Wall, 0, 0, 800, 600);
-  //Lives
   stroke(139, 69, 19);
   strokeWeight(5);
   fill(160, 82, 45);

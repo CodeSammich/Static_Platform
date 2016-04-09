@@ -49,6 +49,7 @@ class main_character extends character_base {
   int sizeX;
   int score;
   int section;
+  boolean death=false;
   ArrayList<PImage>marioList = new ArrayList<PImage>();
   ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
   //ArrayList<Integer>coreList = new ArrayList<Integer>();
@@ -66,9 +67,6 @@ class main_character extends character_base {
     conresistance=7;
     conname="PlayerOne";
     can_spawn=concan_spawn;
-    PImage spritesheet;
-    spritesheet=loadImage("Images/mariospritesheet.png");
-    image(spritesheet, 0, 0);
     //PImage mario = get(14, 10, 14, 20);
     //PImage mario1 = get(31, 10, 15, 19);
     //PImage mario2 = get(115, 7, 16, 22);
@@ -144,8 +142,9 @@ class main_character extends character_base {
 
     if (isOnBlue(c) && yvel > 0) {
       xvel=.9*xvel;
-      if(xvel<.75 && xvel>-0.75){
-        xvel=0; }
+      if (xvel<.75 && xvel>-0.75) {
+        xvel=0;
+      }
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
     }
@@ -174,73 +173,71 @@ class main_character extends character_base {
     //}
 
 
-   
-//===========================================================================================================================================
+
+    //===========================================================================================================================================
     if (keyPressed && key == CODED) {
-        if (keyCode == RIGHT || keyCode == LEFT) {
-          if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
-            walking_state=1; // SET THE WALKING STATE TO POSITIVE
-            standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
-          } else if (walking_state==2) {
-          } // closes walking state 2
-          if (keyCode == RIGHT) { //start of deef for right
-            right = true;
-            saved_state = 1;
-           }
-           else {
-             right = false;
-           }
-           
-          if (keyCode == LEFT) { //start of def for left
-            left = true;
-            saved_state = -1;
-           }
-           else {
-             left = false;
-           }
-           
-          if (keyCode == DOWN) {
-            down = true;
-          } else if(keyCode != DOWN) {
-            down = false;
-          }
-        }//closes right or left
-//===================================================================================================================================================
-        if (keyCode==UP&&jumps>=1&&wait<=1) { //start
+      if (keyCode == RIGHT || keyCode == LEFT) {
+        if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
+          walking_state=1; // SET THE WALKING STATE TO POSITIVE
+          standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
+        } else if (walking_state==2) {
+        } // closes walking state 2
+        if (keyCode == RIGHT) { //start of deef for right
+          right = true;
+          saved_state = 1;
+        } else {
+          right = false;
+        }
+
+        if (keyCode == LEFT) { //start of def for left
+          left = true;
+          saved_state = -1;
+        } else {
+          left = false;
+        }
+
+        if (keyCode == DOWN) {
+          down = true;
+        } else if (keyCode != DOWN) {
+          down = false;
+        }
+      }//closes right or left
+      //===================================================================================================================================================
+      if (keyCode==UP&&jumps>=1&&wait<=1) { //start
+        yvel=-7;
+        jumps=jumps-1;
+        wait=10;
+        jumping_state = 1;
+        if ((walking_state==1 || walking_state==2) && (jumping_state==1)) { //open2
           yvel=-7;
           jumps=jumps-1;
           wait=10;
           jumping_state = 1;
-          if ((walking_state==1 || walking_state==2) && (jumping_state==1)) { //open2
-            yvel=-7;
-            jumps=jumps-1;
-            wait=10;
-            jumping_state = 1;
-            if (right && jumping_state==1) { //open3
-              xvel=xvel+0.1;
-            } //close3
-            if (left && jumping_state==1) { //open4
-              xvel=xvel-0.1;
-            }//close 4
-          }//close2
-        } else if ((keyCode==RIGHT||keyCode==LEFT)&&(right||left)&&(jumping_state==1)) {
           if (right && jumping_state==1) { //open3
-            xvel=xvel+1.41;
-
-            if (xvel>=7) {
-              xvel=6.5;
-            }
+            xvel=xvel+0.1;
           } //close3
           if (left && jumping_state==1) { //open4
-            xvel=xvel-1.41;
-            println(xvel);
-
-            if (xvel<=-7) {
-              xvel=-6.5;
-            }
+            xvel=xvel-0.1;
           }//close 4
-        }//closes start
-      }//closes key coded
+        }//close2
+      } else if ((keyCode==RIGHT||keyCode==LEFT)&&(right||left)&&(jumping_state==1)) {
+        if (right && jumping_state==1) { //open3
+          xvel=xvel+1.41;
+
+          if (xvel>=7) {
+            xvel=6.5;
+          }
+        } //close3
+        if (left && jumping_state==1) { //open4
+          xvel=xvel-1.41;
+          println(xvel);
+
+          if (xvel<=-7) {
+            xvel=-6.5;
+          }
+        }//close 4
+      }//closes start
+    }//closes key coded
     if (!keyPressed) {
       standing_state=1;
       walking_state=0;
@@ -252,7 +249,7 @@ class main_character extends character_base {
     /*if (keyPressed) { // read above comments and basically the same thing but
      walking_state=1;//set walking state positive
      standing_state=0;//make sure game recognises that we are moving
-                                                                                                                                                                                                                                                                                                                            /*prevxcore=xcore;
+                                                                                                                                                                                                                                                                                                                                        /*prevxcore=xcore;
      newxscore=xcore-10; // however it is -10 here so we move backwards
      delay(1);
      xcore=newxcore;
@@ -361,10 +358,9 @@ class main_character extends character_base {
        }
        //image(mario, imgx, imgy, imgw, imgh);
        */
-       
-      }
     }
-  
+  }
+
   void createNewBolt() {
     firebolts.add(new projectile_firebolt(saved_state, (int)xcore, (int)ycore));
   }
@@ -409,6 +405,9 @@ class main_character extends character_base {
   void takeHit() {
     if (!invincible)
       lives--;
+    if (lives==0) {
+      death=true;
+    }
   }
   void setXVel(float change) {
     xvel = change;
@@ -418,5 +417,8 @@ class main_character extends character_base {
   }
   int getLives() {
     return lives;
+  }
+  boolean getDeath() {
+    return death;
   }
 }
