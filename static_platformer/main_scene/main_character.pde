@@ -236,7 +236,7 @@ class main_character extends character_base {
               xvel=xvel-0.1;
             }//close 4
           }//close2
-        } else if (keyCode!=UP&&(right||left)&&(jumping_state==1)) {
+        } else if ((keyCode==RIGHT||keyCode==LEFT)&&(right||left)&&(jumping_state==1)) {
           if (right && jumping_state==1) { //open3
             xvel=xvel+1.41;
             println("Mario has an X Velocity of"+xvel);

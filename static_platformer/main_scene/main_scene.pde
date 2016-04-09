@@ -34,16 +34,7 @@ void draw() {
   resetter();
   //println(mario.getLives());
 }
-/*void keyPressed() {
- if (keyCode==UP&&Lives<3&&Wait<1) {
- Lives=Lives+1;
- Wait=10;
- }
- if (keyCode==DOWN&&Lives>0&&Wait<1) {
- Lives=Lives-1; 
- Wait=10;
- }
- }*/
+
 void drawBackground() { 
   //image(Wall, 0, 0, 800, 600);
   //Lives
@@ -167,4 +158,3 @@ void resetter() {
   //mario.unlock();
   //mario.invincibleOff();
 }
-
