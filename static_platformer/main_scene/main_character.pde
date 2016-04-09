@@ -174,14 +174,7 @@ class main_character extends character_base {
     //}
 
 
-    if (right){
-      //println("right");
-    }
-    if (left){
-      //println("left");
-    if (down){
-      println("down");
-    }
+   
 //===========================================================================================================================================
     if (keyPressed && key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
@@ -362,8 +355,10 @@ class main_character extends character_base {
        }
        //image(mario, imgx, imgy, imgw, imgh);
        */
+       
+      }
     }
-  }
+  
   void createNewBolt() {
     firebolts.add(new projectile_firebolt(saved_state, (int)xcore, (int)ycore));
   }
