@@ -94,49 +94,40 @@ class main_character extends character_base {
     sizeY = 20;
     score = 0;
   }
-
   void lock() {
     locked = true;
     //invincible = true;
     lockwait = 10;
     //invinciblewait = 30;
   }
-
   void locktimer() {
     lockwait -= 1;
   }
-
   void invincibletimer() {
     invinciblewait -= 1;
   }
-
   void unlock() {
     if (lockwait < 1)
       locked = false;
   }
-
   void invincibleOff() {
     if (invinciblewait < 1)
       invincible = false;
   }
-
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
     return c == #6464FF;
   }
-
   boolean getRight() {
     return right;
   }
-
   boolean getLeft() {
     return left;
   }
-
   int getSavedState() {
     return saved_state;
   }
-
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   void display() {
     //println("You have jumped "+ jumptime+ " times");
     //println("You have a y velocity of "+ yvel);
@@ -150,31 +141,29 @@ class main_character extends character_base {
     updateSection();
 
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
-    if (isOnBlue(c) && yvel > 0&& R==0 && L==0) {
-       ;
+
+    if (isOnBlue(c) && yvel > 0) {
+      xvel=.9*xvel;
+      if(xvel<.75 && xvel>-0.75){
+        xvel=0; }
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
     }
-
     if (firewait>0) { // firebolt cooldown
       firewait=firewait-1;
     }
-
     if (wait>0) {
       wait=wait-1;
     }
-
     if (xvel<0) {      // Aidan's code stops mario from skating around : Julius
       xvel=xvel+xacc;
     }
     if (xvel>0) {
       xvel=xvel-xacc;
     }
-
     if (xcore+sizeX >= 800 || xcore <= 0) {
       xvel = 0;
     }
-
     if (keyPressed && key == 32 && firewait <= 1) {
       createNewBolt();
       firewait = 20;
@@ -184,6 +173,15 @@ class main_character extends character_base {
     //  xvel = 0;
     //}
 
+
+    if (right){
+      //println("right");
+    }
+    if (left){
+      //println("left");
+    if (down){
+      println("down");
+    }
 //===========================================================================================================================================
     if (keyPressed && key == CODED) {
         if (keyCode == RIGHT || keyCode == LEFT) {
@@ -191,16 +189,12 @@ class main_character extends character_base {
             walking_state=1; // SET THE WALKING STATE TO POSITIVE
             standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
           } else if (walking_state==2) {
-            //walking_state=1;
-            //tanding_state=0;
           } // closes walking state 2
           if (keyCode == RIGHT) { //start of deef for right
             left = false;
             right = true;
             saved_state = 1;
-           } // else if (keyCode != RIGHT) {
-          //   right = false;
-          // }//closes not right
+           } 
           if (keyCode == LEFT) { //start of def for left
             right = false;
             left = true;
@@ -233,6 +227,7 @@ class main_character extends character_base {
         } else if ((keyCode==RIGHT||keyCode==LEFT)&&(right||left)&&(jumping_state==1)) {
           if (right && jumping_state==1) { //open3
             xvel=xvel+1.41;
+
             if (xvel>=7) {
               xvel=6.5;
             }
@@ -240,6 +235,7 @@ class main_character extends character_base {
           if (left && jumping_state==1) { //open4
             xvel=xvel-1.41;
             println(xvel);
+
             if (xvel<=-7) {
               xvel=-6.5;
             }
