@@ -6,6 +6,7 @@ float Wait=10;
 int enemSpawnTimer=50;
 int scoreTimer = 25;
 int gameOverTimer = 25;
+int flashTimer = 10;
 main_character mario;
 spikey_enemy spikey;
 ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
@@ -26,7 +27,7 @@ void setup() {
 }
 void draw() {
   //Respawn Enemy VVV
-  if (spikeys.size()<3 && enemSpawnTimer < 0) {
+  if (spikeys.size()<3 && enemSpawnTimer < 0 && !mario.getDeath()) {
     spikeys.add(new spikey_enemy(round(random(0, width-100)), round(random(height-300, height-50)), 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
     enemSpawnTimer = 50;
   }
@@ -65,6 +66,7 @@ void deathAnimation() {
     gameOverTimer--;
     if(gameOverTimer <= 0){
       image(GameOver, 0, 0, 800, 600 );
+      if(mousePressed) setup();
     }
   }
 }
@@ -132,6 +134,7 @@ void stateCheck() { // calls on each object for xy values to see which should re
   // enemy vs firebolt detection
   if (spikeys.size() != 0 || firebolts.size() != 0) {
     for (spikey_enemy enem : spikeys) {
+      if(enem.getSpeed() == 0) deathS.add(enem);
       for (projectile_firebolt fire : firebolts) {
         if (abs(enem.getX()-fire.getX()) <= 60 && enem.getSection() == fire.getSection()) {
           deathS.add(enem);

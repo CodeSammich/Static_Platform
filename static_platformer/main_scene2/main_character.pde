@@ -184,7 +184,7 @@ class main_character extends character_base {
 
 
     //===========================================================================================================================================
-    if (keyPressed && key == CODED) {
+    if (keyPressed && key == CODED && !getDeath()) {
       if (keyCode == RIGHT || keyCode == LEFT) {
         if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
           walking_state=1; // SET THE WALKING STATE TO POSITIVE
