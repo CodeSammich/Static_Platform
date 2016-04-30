@@ -4,6 +4,7 @@ PImage Wall;
 PImage GameOver;
 float Wait=10;
 int enemSpawnTimer=50;
+int scoreTimer = 25;
 main_character mario;
 spikey_enemy spikey;
 ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
@@ -41,13 +42,24 @@ void draw() {
   }
   stateCheck();
   resetter();
-
+  if (!mario.getDeath() && scoreTimer < 0) {
+    mario.changeScore(1);
+    scoreTimer = 25;
+  }
+  scoreTimer--;
   if (mario.getDeath()) {
-    for (spikey_enemy enem : spikeys) {
-      enem.halt();
-    }
+    deathAnimation();
   }
   //image(GameOver, 0, 0, 800, 600 );
+}
+
+void deathAnimation() {
+  for (spikey_enemy enem : spikeys) {
+    enem.halt();
+  }
+  for (projectile_firebolt fire : firebolts) {
+    fire.halt();
+  }
 }
 
 void drawBackground() { 
@@ -117,7 +129,7 @@ void stateCheck() { // calls on each object for xy values to see which should re
         if (abs(enem.getX()-fire.getX()) <= 60 && enem.getSection() == fire.getSection()) {
           deathS.add(enem);
           deathF.add(fire);
-          mario.changeScore(10);
+          mario.changeScore(100);
           enemSpawnTimer = 50;
         }
       }
