@@ -1,4 +1,4 @@
-  class spikey_enemy extends character_base {
+class spikey_enemy extends character_base {
   String frame1;
   String frame2;
   PImage img;
@@ -14,11 +14,11 @@
   float VY = 2;
   float G = .1;
   boolean is_enemy;
-  spikey_enemy(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
+  spikey_enemy(int XCoord, int YCoord, float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
     super(condamagedeal, conname, conhealth, conlives, conjump_height, concan_jump, concan_spawn, concan_attack, concan_move, conarmor, conresistance);
     is_enemy=true;
-    x = width-100;
-    y = 350;
+    x = XCoord;
+    y = YCoord;
     sizeX = width/14;
     sizeY = height/10;
     speed = 2;
@@ -54,8 +54,8 @@
   int getFalling() {
     return isFalling;
   }
-  int getSection(){
-    return section; 
+  int getSection() {
+    return section;
   }
   boolean isOnBlue(color c) {
     //return pixels[y*height+x]
@@ -76,18 +76,18 @@
   void setDirection(int change) {
     direction = change;
   }
-  void setSection(int change){
-    section = change; 
+  void setSection(int change) {
+    section = change;
   }
-  void updateSection(){
-    if(y < 0 && y >= height-sizeY) setSection(0);
-    if(y < height-sizeY && y >= 425) setSection(1);
-    if(y < 425 && y >= 425-sizeY) setSection(2);
-    if(y < 425-sizeY && y >= 325) setSection(3);
-    if(y < 325 && y >= 325-sizeY) setSection(4);
-    if(y < 325-sizeY && y >= 325-2*sizeY) setSection(5);
-    if(y < 325-2*sizeY && y >= 325-3*sizeY) setSection(6);
-    if(y < 325-3*sizeY && y >= 325-4*sizeY) setSection(7);
+  void updateSection() {
+    if (y < 0 && y >= height-sizeY) setSection(0);
+    if (y < height-sizeY && y >= 425) setSection(1);
+    if (y < 425 && y >= 425-sizeY) setSection(2);
+    if (y < 425-sizeY && y >= 325) setSection(3);
+    if (y < 325 && y >= 325-sizeY) setSection(4);
+    if (y < 325-sizeY && y >= 325-2*sizeY) setSection(5);
+    if (y < 325-2*sizeY && y >= 325-3*sizeY) setSection(6);
+    if (y < 325-3*sizeY && y >= 325-4*sizeY) setSection(7);
   }
   void display() {
     //if(this != null){
@@ -106,7 +106,7 @@
     if ((x <= 0)||(x >= width-50 /* scale to width */)) setDirection(getDirection() * -1);
     if (mousePressed) this.takeHit();
     if (getLives() < 1) super.kill(this);
-    
+
     updateSection();
   }
   //}

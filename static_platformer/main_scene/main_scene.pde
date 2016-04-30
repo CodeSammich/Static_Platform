@@ -19,9 +19,13 @@ void setup() {
   GameOver = loadImage("Images/gameover.jpg");
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
-  spikeys.add(new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
+  spikeys.add(new spikey_enemy(600, 250, 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
 }
 void draw() {
+  //Respawn Enemy VVV
+  if (spikeys.size()<3) {
+    spikeys.add(new spikey_enemy(round(random(0, width-100)), round(random(height-300, height-50)), 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
+  }
   if (mario.getDeath()==false) {
     background(255);
     drawBackground();
