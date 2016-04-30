@@ -46,7 +46,7 @@
     return speed;
   }
   void halt(){
-    
+    speed = 0;
   }
   int getDirection() {
     return direction;
