@@ -87,8 +87,8 @@ class main_character extends character_base {
     marioList.add(leftmario2);
     marioList.add(leftmario3);
     marioList.add(leftmario4);
-    xcore = 175;
-    ycore = 175;
+    xcore = 400;
+    ycore = 225;
     sizeY = 20;
     score = 0;
   }
