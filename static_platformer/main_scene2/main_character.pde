@@ -148,6 +148,7 @@ class main_character extends character_base {
     updateSection();
 
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
+    color d = get((int)xcore, (int)ycore+sizeY-1);
 
     if (isOnBlue(c) && yvel > 0 && !getDeath()) {
       xvel=.9*xvel;
@@ -156,6 +157,9 @@ class main_character extends character_base {
       }
       yvel = 0;  // stops falling
       jumps = 2;  // resets double jump
+    }
+    if(isOnBlue(d) && !getDeath()){
+      yvel = -1;
     }
     if (firewait>0) { // firebolt cooldown
       firewait=firewait-1;

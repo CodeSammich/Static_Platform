@@ -5,6 +5,7 @@ PImage GameOver;
 float Wait=10;
 int enemSpawnTimer=50;
 int scoreTimer = 25;
+int gameOverTimer = 25;
 main_character mario;
 spikey_enemy spikey;
 ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
@@ -55,12 +56,16 @@ void draw() {
 void deathAnimation() {
   for (spikey_enemy enem : spikeys) {
     enem.halt();
+    
   }
   for (projectile_firebolt fire : firebolts) {
     fire.halt();
   }
   if (mario.getY() > height) {
-    image(GameOver, 0, 0, 800, 600 );
+    gameOverTimer--;
+    if(gameOverTimer <= 0){
+      image(GameOver, 0, 0, 800, 600 );
+    }
   }
 }
 

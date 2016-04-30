@@ -99,6 +99,7 @@
     if (direction == 1)  image(img2, x, y /* scale to height */, sizeX, sizeY);
     //println("direction works?!?!");
     color c = get(x, y+sizeY);
+    color d = get(x, y+sizeY-1);
     if (isOnBlue(c)) setFalling(0);
     else setFalling(1);
     if (getFalling() == 1) {
