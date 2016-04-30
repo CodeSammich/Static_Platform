@@ -22,18 +22,4 @@ class character_base {
     name=conname;
     damagedeal=condamagedeal;
   }
-  /* void ishumanplayer{
-   while(initialization_isDone=false) {
-   */
-  void spawn() {
-  }
-  void death() {
-  }
-  void update() {
-  }
-  void display() {
-  }
-  void kill(Object x) {
-    x = null;
-  }
 }
