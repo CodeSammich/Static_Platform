@@ -19,7 +19,7 @@ class main_character extends character_base {
   float xcore;
   float ycore;
   boolean left;
-  boolean right;
+  boolean right = true;
   boolean jump;
   boolean down;
   boolean lrLock;
@@ -87,8 +87,8 @@ class main_character extends character_base {
     marioList.add(leftmario2);
     marioList.add(leftmario3);
     marioList.add(leftmario4);
-    xcore = 175;
-    ycore = 175;
+    xcore = 400;
+    ycore = 225;
     sizeY = 20;
     score = 0;
   }
@@ -371,6 +371,9 @@ class main_character extends character_base {
   }
   int getLives() {
     return lives;
+  }
+  int getSizeX(){
+    return sizeX; 
   }
   boolean getDeath() {
     return death;

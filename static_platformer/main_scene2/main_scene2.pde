@@ -3,6 +3,8 @@ PImage Door;
 PImage Wall;
 PImage GameOver;
 float Wait=10;
+int enemSpawnTimer=50;
+int scoreTimer = 25;
 main_character mario;
 spikey_enemy spikey;
 ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
@@ -19,25 +21,44 @@ void setup() {
   GameOver = loadImage("Images/gameover.jpg");
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
-  spikeys.add(new spikey_enemy(1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
+  spikeys.add(new spikey_enemy(600, 250, 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
 }
 void draw() {
-  if (mario.getDeath()==false) {
-    background(255);
-    drawBackground();
-    mario.display();
-    for (spikey_enemy x : spikeys) {
-      x.display();
-    }
-    firebolts = mario.getFireBolts();
-    for (projectile_firebolt x : firebolts) {
-      x.display();
-    }
-    stateCheck();
-    resetter();
-    //println(mario.getLives());
-  } else {
-    image(GameOver, 0, 0, 800, 600 );
+  //Respawn Enemy VVV
+  if (spikeys.size()<3 && enemSpawnTimer < 0) {
+    spikeys.add(new spikey_enemy(round(random(0, width-100)), round(random(height-300, height-50)), 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
+    enemSpawnTimer = 50;
+  }
+  enemSpawnTimer--;
+  background(255);
+  drawBackground();
+  mario.display();
+  for (spikey_enemy x : spikeys) {
+    x.display();
+  }
+  firebolts = mario.getFireBolts();
+  for (projectile_firebolt x : firebolts) {
+    x.display();
+  }
+  stateCheck();
+  resetter();
+  if (!mario.getDeath() && scoreTimer < 0) {
+    mario.changeScore(1);
+    scoreTimer = 25;
+  }
+  scoreTimer--;
+  if (mario.getDeath()) {
+    deathAnimation();
+  }
+  //image(GameOver, 0, 0, 800, 600 );
+}
+
+void deathAnimation() {
+  for (spikey_enemy enem : spikeys) {
+    enem.halt();
+  }
+  for (projectile_firebolt fire : firebolts) {
+    fire.halt();
   }
 }
 
@@ -71,14 +92,14 @@ void drawBackground() {
   if (mario.getLives()>=3) {
     image(Heart, 775, 10, 20, 20);
   }
-  
+
   noStroke();
   fill(100, 100, 255);
   rect(100, 425, 150, 15);
   rect(550, 425, 150, 15);
   rect(300, 325, 200, 15);
   rect(0, 585, 800, 15); 
-  
+
   if (Wait>0) {
     Wait=Wait-1;
   }
@@ -108,7 +129,8 @@ void stateCheck() { // calls on each object for xy values to see which should re
         if (abs(enem.getX()-fire.getX()) <= 60 && enem.getSection() == fire.getSection()) {
           deathS.add(enem);
           deathF.add(fire);
-          mario.changeScore(10);
+          mario.changeScore(100);
+          enemSpawnTimer = 50;
         }
       }
     }
@@ -127,6 +149,12 @@ void stateCheck() { // calls on each object for xy values to see which should re
       //mario.lock();
     }
   }
+  if (mario.getX() > 800-mario.getSizeX()) {
+    mario.setXVel(-5);
+  }
+  if (mario.getX() < 0) {
+    mario.setXVel(5);
+  }
 }
 
 void resetter() {
@@ -135,3 +163,4 @@ void resetter() {
   //mario.unlock();
   //mario.invincibleOff();
 }
+

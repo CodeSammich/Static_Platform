@@ -14,11 +14,11 @@
   float VY = 2;
   float G = .1;
   boolean is_enemy;
-  spikey_enemy(float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
+  spikey_enemy(int XCoord, int YCoord, float condamagedeal, String conname, float conhealth, int conlives, float conjump_height, boolean concan_jump, boolean concan_spawn, boolean concan_attack, boolean concan_move, float conarmor, float conresistance) {
     super(condamagedeal, conname, conhealth, conlives, conjump_height, concan_jump, concan_spawn, concan_attack, concan_move, conarmor, conresistance);
     is_enemy=true;
-    x = width-100;
-    y = 350;
+    x = XCoord;
+    y = YCoord;
     sizeX = width/14;
     sizeY = height/10;
     speed = 2;
@@ -44,6 +44,9 @@
   }
   int getSpeed() {
     return speed;
+  }
+  void halt(){
+    speed = 0;
   }
   int getDirection() {
     return direction;
@@ -104,8 +107,6 @@
     }
     setX(getX() + this.getSpeed() /* scale to width/difficulty/framerate */ * getDirection());
     if ((x <= 0)||(x >= width-50 /* scale to width */)) setDirection(getDirection() * -1);
-    if (mousePressed) this.takeHit();
-    if (getLives() < 1) super.kill(this);
     
     updateSection();
   }
