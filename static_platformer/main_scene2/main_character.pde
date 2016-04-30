@@ -2,12 +2,14 @@ PImage mario1;
 PImage mario2;
 PImage mario3;
 PImage mario4;
+PImage deathImage;
 PImage leftmario1;
 PImage leftmario2;
 PImage leftmario3;
 PImage leftmario4;
 
 class main_character extends character_base {
+  
   boolean is_player;
   int standing_state = 0;
   int jumping_state = 0;
@@ -74,6 +76,7 @@ class main_character extends character_base {
     mario2 = loadImage("Images/mario2.png");
     mario3 = loadImage("Images/mario3.png");
     mario4 = loadImage("Images/mario4.png");
+    deathImage = loadImage("Images/mario_die.png");
     leftmario1 = loadImage("Images/left_mario1.png");
     leftmario2 = loadImage("Images/left_mario2.png");
     leftmario3 = loadImage("Images/left_mario3.png");
@@ -127,7 +130,14 @@ class main_character extends character_base {
   }
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   void display() {
-    
+
+    if (death) {
+      image(deathImage, xcore, ycore, 35, 60);
+      left = false;
+      right = false;
+      xvel = 0;
+    }
+
     //GLOBAL ALGORITHMIC CONSTANTS
     xcore=xcore+xvel; // this is from aidans code, sets the xpos with accurate accel and velocity factors
     ycore=ycore+yvel; // this is from aidans code, sets the ypos with accurate accel and velocity factors
@@ -139,7 +149,7 @@ class main_character extends character_base {
 
     color c = get((int)xcore, (int)ycore+sizeY);      // stops infinite falling : Julius
 
-    if (isOnBlue(c) && yvel > 0) {
+    if (isOnBlue(c) && yvel > 0 && !getDeath()) {
       xvel=.9*xvel;
       if (xvel<.75 && xvel>-0.75) {
         xvel=0;
@@ -175,8 +185,7 @@ class main_character extends character_base {
         if (walking_state==0) { // IF RIGHT ARROW KEY PRESSED
           walking_state=1; // SET THE WALKING STATE TO POSITIVE
           standing_state=0; // MAKE SURE THE GAME RECOGNISES THAT WE AREN'T STANDINMG
-        }
-        else if (walking_state==2) {
+        } else if (walking_state==2) {
         } // closes walking state 2
         if (keyCode == RIGHT) { //start of deef for right
           right = true;
@@ -242,7 +251,7 @@ class main_character extends character_base {
     if (yvel == 0) {
       jumping_state = 0;
     }
-    
+
     if (standing_state==1 && jumping_state == 0) {
       sizeX = 16;
       sizeY = 82;
@@ -311,7 +320,6 @@ class main_character extends character_base {
         jumptime=2;
       }
       xcore = xcore + xvel;
-
     }
   }
 
@@ -372,10 +380,11 @@ class main_character extends character_base {
   int getLives() {
     return lives;
   }
-  int getSizeX(){
-    return sizeX; 
+  int getSizeX() {
+    return sizeX;
   }
   boolean getDeath() {
     return death;
   }
 }
+

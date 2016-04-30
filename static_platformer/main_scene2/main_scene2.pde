@@ -32,7 +32,6 @@ void draw() {
   enemSpawnTimer--;
   background(255);
   drawBackground();
-  mario.display();
   for (spikey_enemy x : spikeys) {
     x.display();
   }
@@ -40,6 +39,7 @@ void draw() {
   for (projectile_firebolt x : firebolts) {
     x.display();
   }
+  mario.display();
   stateCheck();
   resetter();
   if (!mario.getDeath() && scoreTimer < 0) {
@@ -50,7 +50,6 @@ void draw() {
   if (mario.getDeath()) {
     deathAnimation();
   }
-  //image(GameOver, 0, 0, 800, 600 );
 }
 
 void deathAnimation() {
@@ -59,6 +58,9 @@ void deathAnimation() {
   }
   for (projectile_firebolt fire : firebolts) {
     fire.halt();
+  }
+  if (mario.getY() > height) {
+    image(GameOver, 0, 0, 800, 600 );
   }
 }
 
@@ -137,7 +139,7 @@ void stateCheck() { // calls on each object for xy values to see which should re
   }
   // enemy vs main character detection
   for (spikey_enemy enem : spikeys) {
-    if (abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0) {
+    if (abs(enem.getX()-mario.getX()) <= 60 && abs(enem.getY()-mario.getY()) <= 30 && wait <= 0 && !mario.getDeath()) {
       mario.takeHit();
       if (mario.getX() > enem.getX()+width/28) {
         mario.setXVel(15);
