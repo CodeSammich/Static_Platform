@@ -13,6 +13,15 @@ ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
 ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
 ArrayList<spikey_enemy> deathS = new ArrayList<spikey_enemy>();
 ArrayList<projectile_firebolt> deathF = new ArrayList<projectile_firebolt>();
+int framecounter = 0;
+float ab = 200;
+float bb = 200;
+float cb = 600;
+float db = 200;
+float eb = 200;
+float fb = 400;
+float gb = 600;
+float hb = 400;
 
 void setup() {
   frameRate(60);
@@ -104,10 +113,22 @@ void drawBackground() {
 
   noStroke();
   fill(100, 100, 255);
-  rect(100, 425, 150, 15);
-  rect(550, 425, 150, 15);
-  rect(300, 325, 200, 15);
-  rect(0, 585, 800, 15); 
+  framecounter += 1;
+  if (framecounter%300 == 299) {
+    ab = random(0, 400);
+    bb = random(100, 300);
+    cb = random(400, 700);
+    db = random(100, 300);
+    eb = random(0, 400);
+    fb = random(300, 500);
+    gb = random(400, 700);
+    hb = random(300, 500);
+  }
+  rect(ab, bb, 150, 15);
+  rect(cb, db, 600, 15);
+  rect(eb, fb, 200, 15);
+  rect(gb, hb, 100, 15);
+  rect(-100, 585, 900, 15); 
 
   if (Wait>0) {
     Wait=Wait-1;
@@ -173,4 +194,3 @@ void resetter() {
   //mario.unlock();
   //mario.invincibleOff();
 }
-

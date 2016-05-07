@@ -52,6 +52,9 @@ void draw() {
     //println(mario.getLives());
   } else {
     image(GameOver, 0, 0, 800, 600 );
+    textSize(50);
+    fill(227,151,0);
+    text("Score: "+mario.getScore(),300,525);
   }
 }
 
