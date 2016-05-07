@@ -9,6 +9,15 @@ ArrayList<spikey_enemy> spikeys = new ArrayList<spikey_enemy>();
 ArrayList<projectile_firebolt> firebolts = new ArrayList<projectile_firebolt>();
 ArrayList<spikey_enemy> deathS = new ArrayList<spikey_enemy>();
 ArrayList<projectile_firebolt> deathF = new ArrayList<projectile_firebolt>();
+int framecounter = 0;
+float ab = 4;
+float bb = 4;
+float cb = 4;
+float db = 4;
+float eb = 4;
+float fb = 4;
+float gb = 4;
+float hb = 4;
 
 void setup() {
   frameRate(60);
@@ -20,6 +29,7 @@ void setup() {
   //                       damage deal, name, health, lives, jump height, can jump, can spawn, can attack, can move, armor, resistance
   mario=new main_character(2.2, "playerone", 10.5, 3, 5.5, true, true, true, true, 6.7, 5.1);
   spikeys.add(new spikey_enemy(600, 250, 1.0, "spikeyguy", 1.0, 1, 0, false, true, false, true, 1.0, 1.0));
+  draw();
 }
 void draw() {
   //Respawn Enemy VVV
@@ -78,10 +88,22 @@ void drawBackground() {
   //image(Door, 300, 355, 200, 280);
   noStroke();
   fill(100, 100, 255);
-  rect(100, 425, 150, 15);
-  rect(550, 425, 150, 15);
-  rect(300, 325, 200, 15);
-  rect(0, 585, 800, 15); 
+  framecounter += 1;
+  if (framecounter%300 == 299) {
+    ab = random(0, 400);
+    bb = random(100, 300);
+    cb = random(400, 700);
+    db = random(100, 300);
+    eb = random(0, 400);
+    fb = random(300, 500);
+    gb = random(400, 700);
+    hb = random(300, 500);
+  }
+  rect(ab, bb, 150, 15);
+  rect(cb, db, random(100, 250), 15);
+  rect(eb, fb, random(100, 250), 15);
+  rect(gb, hb, random(100, 250), 15);
+  rect(-100, 585, 900, 15); 
   /*
 stroke(139,69,19);
    fill(160,82,45);
